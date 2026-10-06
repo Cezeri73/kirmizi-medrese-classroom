@@ -17,33 +17,39 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate modules/modules.json
+      - name: Generate modules/modules.json (from HTML <title>)
         run: |
           node -e "
           const fs=require('fs');
           const path=require('path');
 
           const dir='modules';
+          if(!fs.existsSync(dir)){
+            fs.mkdirSync(dir, {recursive:true});
+          }
+
           const files=fs.readdirSync(dir)
             .filter(f => f.toLowerCase().endsWith('.html'))
-            .filter(f => !f.toLowerCase().includes('index')) // istersen kalsın
             .sort();
 
-          // Dosya adından tarih yakalamaya çalış (YYYY-MM-DD varsa)
+          function pickTitle(html, fallback){
+            const m = html.match(/<title[^>]*>([\\s\\S]*?)<\\/title>/i);
+            if(!m) return fallback;
+            return m[1].replace(/\\s+/g,' ').trim();
+          }
+
           function guessDate(name){
             const m = name.match(/(20\\d{2}-\\d{2}-\\d{2})/);
             return m ? m[1] : '';
           }
 
           const items = files.map(f => {
-            const title = f
-              .replace(/\\.html$/i,'')
-              .replaceAll('-', ' ')
-              .replace(/\\s+/g,' ')
-              .trim();
+            const full = path.join(dir, f);
+            const html = fs.readFileSync(full, 'utf8');
+            const fallback = f.replace(/\\.html$/i,'').replaceAll('-', ' ').trim();
 
             return {
-              title: title,
+              title: pickTitle(html, fallback),
               date: guessDate(f),
               href: `./modules/${f}`,
               tags: [],

@@ -38,6 +38,7 @@ boot();
 
 function boot(){
   renderLessonMenu();
+  renderHomeWeeklyModules();
   bindUI();
   setView("home");
 }
@@ -987,6 +988,55 @@ async function loadWeeklyModulesInto(containerId, errorId){
           Hata: ${escapeHtml(e.message)}
         </span>
       `;
+    }
+  }
+}
+async function renderHomeWeeklyModules(){
+  const wrap = document.getElementById("homeWeeklyModules");
+  const err = document.getElementById("homeWeeklyErr");
+  if(!wrap) return;
+
+  wrap.innerHTML = `<div class="card"><div class="muted">Yükleniyor...</div></div>`;
+  if(err) err.classList.add("hidden");
+
+  try{
+    const res = await fetch(`./modules/modules.json?v=${Date.now()}`, { cache:"no-store" });
+    if(!res.ok) throw new Error(`modules.json okunamadı (${res.status})`);
+    const items = await res.json();
+    if(!Array.isArray(items) || items.length === 0){
+      wrap.innerHTML = `<div class="card"><div class="muted">Henüz haftalık modül yok.</div></div>`;
+      return;
+    }
+
+    items.sort((a,b)=> String(b.date||'').localeCompare(String(a.date||'')));
+
+    // Ana sayfada son 6 modülü gösterelim
+    const top = items.slice(0, 6);
+
+    wrap.innerHTML = top.map(m => {
+      const tags = (m.tags || []).slice(0,4).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join("");
+      const minutes = m.minutes ? `${m.minutes} dk` : "50 dk";
+      const date = m.date ? escapeHtml(m.date) : "";
+      return `
+        <div class="card lesson-card">
+          <h3>${escapeHtml(m.title || "Modül")}</h3>
+          <p class="muted">${date} • ${escapeHtml(minutes)}</p>
+          <div class="badges">${tags}</div>
+          <div class="cta-row">
+            <a class="primary" style="display:inline-block; text-decoration:none; padding:10px 12px; border-radius:12px;"
+               href="${escapeHtml(m.href)}" target="_blank" rel="noopener">
+              Aç
+            </a>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+  }catch(e){
+    wrap.innerHTML = `<div class="card"><div class="muted">Haftalık modüller yüklenemedi.</div></div>`;
+    if(err){
+      err.classList.remove("hidden");
+      err.innerHTML = `<strong>Uyarı:</strong> Haftalık modül listesi yüklenemedi. İnternet yoksa normal. <br/><span class="muted">${escapeHtml(e.message)}</span>`;
     }
   }
 }
