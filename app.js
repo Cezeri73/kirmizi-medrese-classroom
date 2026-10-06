@@ -137,6 +137,10 @@ function renderPlayer(){
   stepButtons.forEach(b=> b.classList.toggle("active", b.dataset.step === step));
 
   stageBody.innerHTML = "";
+  // Weekly module list auto-load
+  if(lesson.id === "weekly_modules" && step === "learn"){
+    loadWeeklyModulesInto("weeklyList", "weeklyErr");
+  }
   if(step === "learn") stageBody.innerHTML = lesson.learnHtml;
   if(step === "anim") stageBody.innerHTML = lesson.animHtml;
   if(step === "activity") stageBody.innerHTML = lesson.activityHtml;
@@ -341,6 +345,34 @@ function escapeHtml(str){
 function getLessons(){
   return [
     // 1) INTERNET STORY (detaylı)
+    {
+  id:"weekly_modules",
+  title:"Haftalık Modüller (Arşiv)",
+  short:"Her hafta eklenen harici ders/sunum sayfaları burada listelenir.",
+  tags:["Haftalık","Arşiv"],
+  timePlan:"İstediğin modülü seç → 50 dk uygula",
+  teacherNotes:{
+    learn:"Listeden haftayı seçip aç. İnternet yoksa local kopyadan açabilirsin.",
+    anim:"-",
+    activity:"-",
+    quiz:"-"
+  },
+  learnHtml: `
+    <h3>Haftalık Modüller</h3>
+    <p class="muted">Liste <code>modules/modules.json</code> dosyasından otomatik gelir.</p>
+    <div id="weeklyList" class="list"></div>
+    <div id="weeklyErr" class="notice2 hidden"></div>
+    <div class="hr"></div>
+    <p class="muted">
+      Yeni modül eklemek için:<br/>
+      1) <code>modules/</code> altına yeni HTML koy<br/>
+      2) <code>modules/modules.json</code> içine yeni satır ekle
+    </p>
+  `,
+  animHtml:`<p class="muted">Bu ders listeden açılır.</p>`,
+  activityHtml:`<p class="muted">Bu ders listeden açılır.</p>`,
+  quiz:[]
+},
     {
       id:"internet_story",
       title:"İnternet Nasıl Çalışır? (Hikâye + Tarihçe)",
@@ -897,4 +929,64 @@ function getLessons(){
       ]
     },
   ];
+}
+async function loadWeeklyModulesInto(containerId, errorId){
+  const container = document.getElementById(containerId);
+  const errBox = document.getElementById(errorId);
+  if(!container) return;
+
+  container.innerHTML = `<div class="muted">Yükleniyor...</div>`;
+  if(errBox) errBox.classList.add("hidden");
+
+  try{
+    // cache-busting: her güncellemede en güncel json gelsin
+    const url = `./modules/modules.json?v=${Date.now()}`;
+    const res = await fetch(url, { cache: "no-store" });
+    if(!res.ok) throw new Error(`modules.json okunamadı (${res.status})`);
+    const items = await res.json();
+
+    if(!Array.isArray(items) || items.length === 0){
+      container.innerHTML = `<div class="muted">Henüz modül eklenmemiş.</div>`;
+      return;
+    }
+
+    // tarihe göre yeni -> eski
+    items.sort((a,b)=> String(b.date).localeCompare(String(a.date)));
+
+    container.innerHTML = items.map((m)=> {
+      const tags = (m.tags || []).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join("");
+      const minutes = m.minutes ? `${m.minutes} dk` : "—";
+      const note = m.note ? escapeHtml(m.note) : "";
+      const href = m.href || "#";
+
+      return `
+        <div class="card" style="margin:12px 0; background:rgba(0,0,0,.12); border-color:rgba(255,255,255,.08)">
+          <div style="display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap; align-items:flex-start">
+            <div>
+              <div><strong>${escapeHtml(m.title || "Modül")}</strong></div>
+              <div class="muted">${escapeHtml(m.date || "")} • ${escapeHtml(minutes)} ${note ? "• " + note : ""}</div>
+              <div class="badges" style="margin-top:8px">${tags}</div>
+            </div>
+            <div class="cta-row" style="margin:0">
+              <a class="btn" href="${escapeHtml(href)}" target="_blank" rel="noopener">Aç (Yeni Sekme)</a>
+              <a class="btn" href="${escapeHtml(href)}">Bu Sekmede Aç</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+  }catch(e){
+    container.innerHTML = "";
+    if(errBox){
+      errBox.classList.remove("hidden");
+      errBox.innerHTML = `
+        <strong>Liste yüklenemedi.</strong><br/>
+        <span class="muted">
+          İnternet yoksa bu normal olabilir. Offline kullanım için siteyi ZIP indirip local çalıştırabilirsin.<br/>
+          Hata: ${escapeHtml(e.message)}
+        </span>
+      `;
+    }
+  }
 }
