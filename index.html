@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Kırmızı Medrese | Sınıf Dersi</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">KM</div>
+    <div>
+      <div class="title">Kırmızı Medrese</div>
+      <div class="subtitle">Sınıf Modu • Tek PC + Projeksiyon</div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="pill" id="lessonPill">Ders: -</div>
+    <div class="pill" id="stepPill">Bölüm: -</div>
+    <button class="btn" id="btnFullscreen" type="button">Tam ekran</button>
+    <button class="btn" id="btnHome" type="button">Ders menüsü</button>
+  </div>
+</header>
+
+<main class="container">
+  <!-- HOME / LESSON MENU -->
+  <section id="view-home" class="view active">
+    <div class="hero">
+      <h1>Sınıf Dersi Paneli</h1>
+      <p>
+        Ders seçin, anlatım ile başlayın; demo/animasyonları çalıştırın, etkinliği uygulayın,
+        quizde sınıfça A/B/C/D oylama yapın.
+      </p>
+      <div class="cta-row">
+        <button class="primary" id="btnStartFirst" type="button">İlk dersi başlat</button>
+      </div>
+    </div>
+
+    <h2 class="h2">Dersler</h2>
+    <div id="lessonCards" class="grid-2"></div>
+
+    <div class="card tips">
+      <h3>Hızlı kullanım</h3>
+      <ul class="muted">
+        <li><strong>İleri/Geri:</strong> → / ← tuşları</li>
+        <li><strong>Bölümler:</strong> 1) Anlatım 2) Animasyon/Demo 3) Etkinlik 4) Quiz</li>
+        <li><strong>Quiz:</strong> Çocuklar el kaldırarak A/B/C/D oylasın</li>
+        <li><strong>Offline:</strong> İnternet yoksa derslerde “Offline plan” kısmını kullan</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CLASSROOM PLAYER -->
+  <section id="view-player" class="view">
+    <div class="player">
+      <aside class="side">
+        <div class="card side-card">
+          <h3>Bölümler</h3>
+          <div class="side-nav">
+            <button class="nav2 active" data-step="learn" type="button">1) Anlatım</button>
+            <button class="nav2" data-step="anim" type="button">2) Animasyon / Demo</button>
+            <button class="nav2" data-step="activity" type="button">3) Etkinlik</button>
+            <button class="nav2" data-step="quiz" type="button">4) Quiz</button>
+          </div>
+        </div>
+
+        <div class="card side-card">
+          <h3>Eğitmen Notu</h3>
+          <div id="teacherNote" class="muted">-</div>
+        </div>
+
+        <div class="card side-card">
+          <h3>Süre Önerisi</h3>
+          <div id="timeBox" class="muted">Toplam: 50 dk</div>
+        </div>
+
+        <div class="card side-card">
+          <h3>Kısayollar</h3>
+          <div class="muted">
+            <div><strong>→</strong> ileri</div>
+            <div><strong>←</strong> geri</div>
+            <div><strong>Tam ekran</strong> butonu ile projeksiyon modu</div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="stage">
+        <div class="stage-header">
+          <h2 id="stageTitle">-</h2>
+          <div class="stage-controls">
+            <button class="btn" id="btnPrev" type="button">← Geri</button>
+            <button class="btn" id="btnNext" type="button">İleri →</button>
+          </div>
+        </div>
+
+        <div id="stageBody" class="stage-body">
+          <!-- app.js burayı ders adımına göre doldurur -->
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span class="muted">Kırmızı Medrese • Sınıf Modu (Offline uyumlu)</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
