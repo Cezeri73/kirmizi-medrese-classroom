@@ -1,0 +1,65 @@
+name: Generate modules.json
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "modules/**"
+      - ".github/workflows/generate-modules-json.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate modules/modules.json
+        run: |
+          node -e "
+          const fs=require('fs');
+          const path=require('path');
+
+          const dir='modules';
+          const files=fs.readdirSync(dir)
+            .filter(f => f.toLowerCase().endsWith('.html'))
+            .filter(f => !f.toLowerCase().includes('index')) // istersen kalsın
+            .sort();
+
+          // Dosya adından tarih yakalamaya çalış (YYYY-MM-DD varsa)
+          function guessDate(name){
+            const m = name.match(/(20\\d{2}-\\d{2}-\\d{2})/);
+            return m ? m[1] : '';
+          }
+
+          const items = files.map(f => {
+            const title = f
+              .replace(/\\.html$/i,'')
+              .replaceAll('-', ' ')
+              .replace(/\\s+/g,' ')
+              .trim();
+
+            return {
+              title: title,
+              date: guessDate(f),
+              href: `./modules/${f}`,
+              tags: [],
+              minutes: 50,
+              note: ''
+            };
+          });
+
+          fs.writeFileSync(path.join(dir,'modules.json'), JSON.stringify(items,null,2));
+          console.log('Generated modules/modules.json with', items.length, 'items');
+          "
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add modules/modules.json
+          git diff --cached --quiet || git commit -m "chore: auto-generate modules.json"
+          git push
