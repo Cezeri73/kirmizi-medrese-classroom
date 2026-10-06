@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#0b1020"/>
+  <title>Kırmızı Medrese | Keşif Formu Sunumu (Sınıf Modu)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#121a33;
+      --card:#161f3d;
+      --text:#e8ecff;
+      --muted:#b7c0ffcc;
+      --line:rgba(255,255,255,.12);
+      --primary:#6aa6ff;
+      --primary2:#89f7d4;
+      --warn:#ffd27a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: radial-gradient(1200px 600px at 20% 0%, #1b2a66 0%, var(--bg) 55%);
+      color:var(--text);
+    }
+    header{
+      position:sticky; top:0; z-index:10;
+      display:flex; gap:10px; justify-content:space-between; align-items:center;
+      padding:12px 14px;
+      background: rgba(10,14,30,.78);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .brand{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .logo{
+      width:40px;height:40px;border-radius:12px;
+      display:grid;place-items:center;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      color:#071022; font-weight:900;
+    }
+    .title{font-weight:900}
+    .subtitle{color:var(--muted); font-size:12px}
+
+    .pill{
+      padding:8px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+
+    .toolbar{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+
+    .btn{
+      border-radius:12px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .btn:hover{border-color:rgba(255,255,255,.28)}
+    .primary{
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      border:none;
+      color:#071022;
+      font-weight:900;
+    }
+    a.btn{ text-decoration:none; display:inline-block }
+
+    main{max-width:1100px; margin:0 auto; padding:16px 16px 60px}
+
+    .slide{
+      border-radius:18px;
+      border:1px solid var(--line);
+      background: rgba(18,26,51,.72);
+      box-shadow: var(--shadow);
+      padding:20px;
+      min-height:70vh;
+    }
+    h1,h2,h3{margin:.2em 0 .5em}
+    p{margin:.3em 0}
+    .muted{color:var(--muted)}
+    .hr{height:1px;background:rgba(255,255,255,.10);margin:14px 0}
+
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+
+    .opt{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.16);
+      cursor:pointer;
+    }
+    .opt:hover{border-color:rgba(255,255,255,.28)}
+    .opt .lab{display:inline-grid; place-items:center; width:34px;height:34px;border-radius:12px;
+      background: rgba(106,166,255,.18); border:1px solid rgba(106,166,255,.55);
+      font-weight:900; margin-right:10px;
+    }
+    .selected{
+      border-color: rgba(137,247,212,.6);
+      background: rgba(137,247,212,.10);
+    }
+
+    .card{
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.14);
+      padding:14px;
+    }
+
+    .bar{
+      height:12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      margin-top:10px;
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+    }
+
+    .kbd{
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.08);
+      padding:2px 8px;
+      border-radius:10px;
+    }
+
+    .footerbar{
+      display:flex; gap:10px; justify-content:space-between; align-items:center;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .hidden{display:none !important}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">KM</div>
+    <div>
+      <div class="title">Keşif Formu Sunumu</div>
+      <div class="subtitle">Sınıf Modu • Köy çocukları için merak uyandıran teknoloji oyunu</div>
+    </div>
+    <div class="pill" id="pillStep">Slayt: 1</div>
+    <div class="pill" id="pillQ">Soru: -</div>
+  </div>
+
+  <div class="toolbar">
+    <div class="pill">Kısayol: <span class="kbd">←</span>/<span class="kbd">→</span></div>
+    <button class="btn" id="btnPrev">← Geri</button>
+    <button class="btn" id="btnNext">İleri →</button>
+    <button class="btn" id="btnFull">Tam ekran</button>
+    <button class="btn" id="btnReset">Sıfırla</button>
+    <a class="btn" href="../index.html">Ana site</a>
+  </div>
+</header>
+
+<main>
+  <section class="slide" id="stage"></section>
+  <div class="footerbar">
+    <div class="muted" id="hint">
+      İpucu: Soruyu oku → sınıfça oylayın → en çok el kalkanı seç.
+    </div>
+    <div class="pill" id="pillProg">0/12</div>
+  </div>
+</main>
+
+<script>
+/**
+ * Amaç:
+ * - Sınıfça oylama ile ilgi alanı + seviye tahmini
+ * - Merak uyandırmak: köy hayatından örnekler + hayal gücü soruları
+ */
+
+const CATS = ["internet","safety","design","office","hardware","ai","techlife"];
+
+const labelOf = (k) => ({
+  internet:"İnternet nasıl çalışır?",
+  safety:"Dijital güvenlik",
+  design:"Canva ile tasarım",
+  office:"Ödev / sunum (Google Ofis)",
+  hardware:"Bilgisayar parçaları",
+  ai:"Yapay zeka + doğru soru sorma",
+  techlife:"Günlük teknoloji (robot/akıllı cihaz)"
+}[k] || k);
+
+const questions = [
+  {
+    q:"Bugün ‘Teknoloji Dedektifleri’yiz. Hazır mısınız?",
+    type:"intro",
+    text: `
+      <h1>Teknoloji Dedektifleri</h1>
+      <p>Bugün küçük bir oyun oynayacağız.</p>
+      <div class="card">
+        <strong>Kurallar:</strong>
+        <ol>
+          <li>Ben soruyu okurum.</li>
+          <li>Siz el kaldırarak oy verirsiniz.</li>
+          <li>Ben ekranda tıklarım.</li>
+        </ol>
+      </div>
+      <div class="hr"></div>
+      <p class="muted"><strong>Hedef:</strong> En çok neyi merak ediyorsunuz bulup dersleri ona göre seçmek.</p>
+    `
+  },
+
+  // 1
+  {
+    q:"Telefonla en çok ne yapmayı seviyorsun?",
+    why:"İlgi alanını anlarız",
+    opts:[
+      {t:"Video izlemek", add:{techlife:2}},
+      {t:"Oyun oynamak", add:{techlife:2}},
+      {t:"Resim/çizim, düzenleme", add:{design:3}},
+      {t:"Araştırma / ödev", add:{office:2, internet:1}}
+    ]
+  },
+  // 2
+  {
+    q:"İnternet olmasa en çok ne zor olurdu?",
+    why:"İnternetin değerini fark ettirir",
+    opts:[
+      {t:"Mesajlaşma", add:{internet:2}},
+      {t:"Video ile öğrenme", add:{internet:2}},
+      {t:"Oyun", add:{internet:1, techlife:1}},
+      {t:"Hiç fark etmez", add:{hardware:1}}
+    ]
+  },
+  // 3
+  {
+    q:"Sence internet en çok neye benzer?",
+    why:"Kavramı benzetme ile anlarız",
+    opts:[
+      {t:"Yol ağı (paketler gider)", add:{internet:3}},
+      {t:"Büyük bir kütüphane", add:{internet:2}},
+      {t:"Sihir gibi", add:{internet:1}},
+      {t:"Kablo yığını", add:{hardware:1, internet:1}}
+    ],
+    teach:"İnterneti ‘yollar’ gibi düşünürsek daha kolay anlarız."
+  },
+  // 4
+  {
+    q:"Bir link geldi: ‘Ödül kazandın, hemen tıkla!’ Ne yaparsın?",
+    why:"Güvenlik davranışı",
+    opts:[
+      {t:"Hemen tıklarım", add:{safety:0}},
+      {t:"Bir büyüğe/öğretmene sorarım", add:{safety:3}},
+      {t:"Silip geçerim", add:{safety:2}},
+      {t:"Arkadaşa yollarım", add:{safety:0}}
+    ],
+    teach:"Güvenlikte en iyisi: şüpheli linkte dur, sor, kontrol et."
+  },
+  // 5
+  {
+    q:"Şifre seçerken hangisi daha doğru?",
+    why:"Şifre güvenliği",
+    opts:[
+      {t:"123456 gibi kolay", add:{safety:0}},
+      {t:"İsim-doğum tarihi", add:{safety:0}},
+      {t:"Uzun + karışık (Km2026!Güvenli)", add:{safety:3}},
+      {t:"Her yerde aynı şifre", add:{safety:0}}
+    ],
+    teach:"Doğru: uzun + karışık + kimseyle paylaşma."
+  },
+  // 6
+  {
+    q:"Bir afiş hazırlasan konusu ne olurdu?",
+    why:"Tasarım merakı",
+    opts:[
+      {t:"Güvenli internet", add:{design:2, safety:1}},
+      {t:"Okul etkinliği", add:{design:2}},
+      {t:"Köyde su/çevre", add:{design:2, techlife:1}},
+      {t:"Spor/turnuva", add:{design:2}}
+    ]
+  },
+  // 7
+  {
+    q:"Sunum yapmayı sever misin?",
+    why:"Anlatma isteği + ofis araçları",
+    opts:[
+      {t:"Evet, anlatmayı severim", add:{office:2}},
+      {t:"Çekinirim ama öğrenmek isterim", add:{office:2}},
+      {t:"Sevmem", add:{office:0}},
+      {t:"Bilmiyorum", add:{office:1}}
+    ]
+  },
+  // 8
+  {
+    q:"Sence bilgisayarın ‘beyni’ hangisi?",
+    why:"Donanım temel bilgisi",
+    opts:[
+      {t:"Ekran", add:{hardware:0}},
+      {t:"CPU (işlemci)", add:{hardware:3}},
+      {t:"Klavye", add:{hardware:0}},
+      {t:"Hoparlör", add:{hardware:0}}
+    ],
+    teach:"CPU=beyin, RAM=çalışma masası, SSD=dosya dolabı."
+  },
+  // 9
+  {
+    q:"Bir robotun olsa köyde ne iş yapsın isterdin?",
+    why:"Hayal gücü + teknoloji",
+    opts:[
+      {t:"Tarla sulama yardımcısı", add:{techlife:2, ai:1}},
+      {t:"Hayvanlara yem verme", add:{techlife:2, ai:1}},
+      {t:"Ödevlerde yardımcı", add:{ai:2, office:1}},
+      {t:"Oyun arkadaşı", add:{ai:1, techlife:1}}
+    ]
+  },
+  // 10
+  {
+    q:"Yapay zeka ile en çok ne yapmak isterdin?",
+    why:"AI ilgisi",
+    opts:[
+      {t:"Hikaye yazdırmak", add:{ai:2}},
+      {t:"Resim fikirleri bulmak", add:{ai:2, design:1}},
+      {t:"Ders çalışmak", add:{ai:2, office:1}},
+      {t:"Hiç kullanmak istemem", add:{ai:0}}
+    ],
+    teach:"AI bazen yanlış söyler. Cevabı kontrol etmek gerekir."
+  },
+  // 11
+  {
+    q:"Derslerde en çok hangisi heyecanlandırır?",
+    why:"Ders sıralaması için ipucu",
+    opts:[
+      {t:"Poster / tasarım", add:{design:3}},
+      {t:"İnternet nasıl çalışır?", add:{internet:3}},
+      {t:"AI ile akıllı sorular sormak", add:{ai:3}},
+      {t:"Ödev / sunum hazırlamak", add:{office:3}}
+    ]
+  },
+  // 12
+  {
+    q:"Kendini bilgisayarda nasıl hissediyorsun?",
+    why:"Seviyeyi tahmin eder",
+    opts:[
+      {t:"Yeni başlıyorum", add:{level:0}},
+      {t:"Orta", add:{level:1}},
+      {t:"İyi", add:{level:2}},
+      {t:"Çok iyi", add:{level:3}}
+    ]
+  },
+
+  {
+    q:"Sonuç",
+    type:"result"
+  }
+];
+
+let slideIndex = 0;
+const picks = new Array(questions.length).fill(null);
+const score = {internet:0,safety:0,design:0,office:0,hardware:0,ai:0,techlife:0,level:0};
+
+const stage = document.getElementById("stage");
+const pillStep = document.getElementById("pillStep");
+const pillQ = document.getElementById("pillQ");
+const pillProg = document.getElementById("pillProg");
+const hint = document.getElementById("hint");
+
+function applyDelta(add, sign){
+  if(!add) return;
+  Object.keys(add).forEach(k=>{
+    score[k] = (score[k] || 0) + sign*add[k];
+  });
+}
+
+function render(){
+  const cur = questions[slideIndex];
+  pillStep.textContent = `Slayt: ${slideIndex+1}/${questions.length}`;
+  const answeredCount = picks.filter(x=>x!==null).length;
+  pillProg.textContent = `${Math.min(answeredCount, 12)}/12`;
+
+  if(cur.type === "intro"){
+    pillQ.textContent = "Soru: Başlangıç";
+    hint.textContent = "İleri → ile sorulara geç.";
+    stage.innerHTML = cur.text;
+    return;
+  }
+
+  if(cur.type === "result"){
+    pillQ.textContent = "Soru: Sonuç";
+    hint.textContent = "Sonuç ekranı: Sınıf yönelimi + önerilen ders sırası.";
+    stage.innerHTML = renderResult();
+    return;
+  }
+
+  // normal question
+  const qNumber = getQuestionNumber(slideIndex);
+  pillQ.textContent = `Soru: ${qNumber}/12`;
+  hint.textContent = "Sınıfça oylayın → en çok el kalkanı tıkla.";
+
+  const letters = ["A","B","C","D"];
+  stage.innerHTML = `
+    <h1>Keşif Sorusu</h1>
+    <h2>${cur.q}</h2>
+    <p class="muted"><strong>Neden soruyoruz?</strong> ${cur.why || ""}</p>
+
+    ${cur.teach ? `<div class="card"><strong>Mini bilgi:</strong> ${cur.teach}</div>` : ""}
+
+    <div class="hr"></div>
+    <div class="grid2">
+      ${cur.opts.map((o,i)=> `
+        <div class="opt ${picks[slideIndex]===i ? "selected":""}" data-i="${i}">
+          <div><span class="lab">${letters[i]}</span><strong>${o.t}</strong></div>
+        </div>
+      `).join("")}
+    </div>
+
+    <div class="hr"></div>
+    <div class="muted">
+      İpucu: Bir seçenek seçince “Seçildi” sayılır. İstersen değiştir.
+    </div>
+  `;
+
+  stage.querySelectorAll(".opt").forEach(el=>{
+    el.onclick = () => choose(Number(el.dataset.i));
+  });
+}
+
+function getQuestionNumber(si){
+  // intro=0, result=last. Aradakileri 1..12 say
+  let count = 0;
+  for(let i=0;i<=si;i++){
+    const t = questions[i].type;
+    if(!t) count++;
+  }
+  return count;
+}
+
+function choose(i){
+  const cur = questions[slideIndex];
+  const old = picks[slideIndex];
+  if(old !== null) applyDelta(cur.opts[old].add, -1);
+  picks[slideIndex] = i;
+  applyDelta(cur.opts[i].add, +1);
+  render();
+}
+
+function levelLabel(v){
+  if(v<=0) return "Yeni başlıyor";
+  if(v===1) return "Orta";
+  if(v===2) return "İyi";
+  return "Çok iyi";
+}
+
+function renderResult(){
+  const cats = CATS.map(k=>({k,v:score[k]||0})).sort((a,b)=>b.v-a.v);
+  const top3 = cats.slice(0,3);
+  const lvl = levelLabel(score.level||0);
+
+  const bars = top3.map(x=>{
+    const pct = Math.min(100, x.v*12);
+    return `
+      <div class="card" style="margin:10px 0">
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <strong>${labelOf(x.k)}</strong>
+          <span class="muted">puan: ${x.v}</span>
+        </div>
+        <div class="bar"><div style="width:${pct}%"></div></div>
+      </div>
+    `;
+  }).join("");
+
+  return `
+    <h1>Sonuç: Sınıf Profili (Tahmini)</h1>
+    <p class="muted">Bu sonuçlar sınıfça oylamaya göre çıkar. Kesin sınav değildir.</p>
+
+    <div class="card">
+      <strong>Seviye (tahmini):</strong> ${lvl}
+      <div class="muted">Not: Seviyeyi ders içinde gözlemle kesinleştir.</div>
+    </div>
+
+    <div class="hr"></div>
+    <h2>En çok merak edilen 3 alan</h2>
+    ${bars}
+
+    <div class="hr"></div>
+    <h2>Önerilen ders sırası</h2>
+    <ol>
+      ${top3.map(x=>`<li>${labelOf(x.k)}</li>`).join("")}
+      <li>Dijital güvenlik (herkese gerekli)</li>
+    </ol>
+
+    <div class="hr"></div>
+    <div class="card">
+      <strong>Merak kıvılcımı (Kapanış sorusu):</strong><br/>
+      “Bir icat yapsan köyde hangi sorunu çözerdi?”
+      <div class="muted" style="margin-top:8px">
+        Örnek: Sulama, hayvan bakımı, ulaşım, enerji, ders çalışma…
+      </div>
+    </div>
+  `;
+}
+
+function prev(){
+  if(slideIndex>0){ slideIndex--; render(); }
+}
+function next(){
+  if(slideIndex<questions.length-1){ slideIndex++; render(); }
+}
+
+document.getElementById("btnPrev").onclick = prev;
+document.getElementById("btnNext").onclick = next;
+
+document.getElementById("btnReset").onclick = ()=>{
+  if(!confirm("Tüm seçimler sıfırlansın mı?")) return;
+  slideIndex = 0;
+  for(let i=0;i<picks.length;i++) picks[i] = null;
+  Object.keys(score).forEach(k=> score[k]=0);
+  render();
+};
+
+document.getElementById("btnFull").onclick = async ()=>{
+  try{
+    if(!document.fullscreenElement) await document.documentElement.requestFullscreen();
+    else await document.exitFullscreen();
+  }catch{}
+};
+
+window.addEventListener("keydown",(e)=>{
+  if(e.key==="ArrowLeft") prev();
+  if(e.key==="ArrowRight") next();
+});
+
+render();
+</script>
+</body>
+</html>
