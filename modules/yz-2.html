@@ -1,0 +1,4903 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#70243d">
+
+<title>Kırmızı Medrese Akademi | Yapay Zekâ Dedektifleri</title>
+
+<style>
+:root {
+  --wine: #70243d;
+  --wine-dark: #44172a;
+  --gold: #f2bd62;
+  --bg: #f7f3ef;
+  --paper: #ffffff;
+  --ink: #292532;
+  --muted: #5e5a68;
+  --line: #e2d7dc;
+  --blue: #255d96;
+  --green: #146b4b;
+  --red: #aa3447;
+  --purple: #664fa3;
+  --soft: #faeaf0;
+  --shadow: 0 12px 30px rgba(62, 24, 41, .08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 95% 2%, #f1dce4, transparent 24%),
+    var(--bg);
+  font: 16px/1.58 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  min-height: 44px;
+  padding: 10px 15px;
+  color: white;
+  background: var(--wine);
+  border: 1px solid transparent;
+  border-radius: 11px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+button.alt {
+  color: var(--wine);
+  background: white;
+  border-color: #c5adb7;
+}
+
+button.quiet {
+  color: var(--ink);
+  background: #f2f1f6;
+  border-color: #d9d7e2;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  color: var(--ink);
+  background: white;
+  border: 1px solid #ad9da5;
+  border-radius: 10px;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+label {
+  display: block;
+  margin: 13px 0 5px;
+  font-weight: 750;
+}
+
+a {
+  color: var(--blue);
+}
+
+header {
+  padding: 20px 0;
+  color: white;
+  background:
+    radial-gradient(circle at 85% 25%, rgba(242,189,98,.2), transparent 22%),
+    linear-gradient(120deg, var(--wine), var(--wine-dark));
+}
+
+.wrap {
+  width: min(1160px, calc(100% - 30px));
+  margin: auto;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+}
+
+header h1 {
+  margin: 4px 0;
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  line-height: 1.1;
+}
+
+header p {
+  margin: 4px 0;
+  color: #ffe6ed;
+}
+
+.hero-icon {
+  font-size: 5rem;
+  animation: float 3.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-9px) rotate(3deg);
+  }
+}
+
+main {
+  padding: 18px 0 65px;
+}
+
+h2,
+h3 {
+  line-height: 1.25;
+}
+
+.card {
+  padding: clamp(16px, 3vw, 26px);
+  margin: 15px 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.inner {
+  padding: 15px;
+  margin: 12px 0;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 15px;
+  margin-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.pill {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #f0e8ed;
+  border-radius: 100px;
+  font-size: .87rem;
+  font-weight: 750;
+}
+
+.flag {
+  display: inline-block;
+  padding: 5px 11px;
+  color: #50331f;
+  background: #ffe3ad;
+  border-radius: 100px;
+  font-size: .86rem;
+  font-weight: 850;
+}
+
+.note,
+.feedback {
+  padding: 12px 15px;
+  margin: 12px 0;
+  border-radius: 0 11px 11px 0;
+}
+
+.note {
+  background: #fff4dc;
+  border-left: 5px solid var(--gold);
+}
+
+.feedback {
+  background: #edf5ff;
+  border-left: 5px solid var(--blue);
+}
+
+.feedback.good {
+  background: #e8f7ee;
+  border-color: var(--green);
+}
+
+.feedback.bad {
+  background: #fff0f2;
+  border-color: var(--red);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: .9rem;
+}
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hud .pill {
+  background: white;
+  border: 1px solid var(--line);
+}
+
+.progress {
+  height: 11px;
+  margin: 12px 0;
+  overflow: hidden;
+  background: #e9e0e4;
+  border-radius: 100px;
+}
+
+.progress > div {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--wine), var(--gold));
+  transition: width .3s;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  margin: 9px 0;
+  text-align: left;
+  color: var(--ink);
+  background: white;
+  border: 1px solid #c3b3bb;
+}
+
+.choice:hover:not(:disabled) {
+  background: var(--soft);
+}
+
+.choice.correct {
+  background: #e7f6ed;
+  border-color: var(--green);
+}
+
+.choice.wrong {
+  background: #fff0f2;
+  border-color: var(--red);
+}
+
+.lesson-card {
+  border-left: 6px solid var(--wine);
+}
+
+.quest {
+  position: relative;
+  padding: 16px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.quest.done {
+  background: #f2fbf5;
+  border-color: var(--green);
+}
+
+.quest.locked {
+  opacity: .62;
+}
+
+.quest .icon {
+  font-size: 2.25rem;
+}
+
+.quest h3 {
+  margin: 5px 0;
+}
+
+.lesson-select {
+  padding: 22px;
+  border: 2px solid var(--line);
+  border-radius: 17px;
+  background: white;
+  transition: .2s;
+}
+
+.lesson-select:hover {
+  border-color: var(--wine);
+  transform: translateY(-3px);
+}
+
+.lesson-select .icon {
+  font-size: 3.5rem;
+}
+
+.video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #161316;
+  border-radius: 13px;
+}
+
+.video iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.term {
+  padding: 14px;
+  margin: 10px 0;
+  background: #fffaf6;
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--wine);
+  border-radius: 12px;
+}
+
+.term strong {
+  color: var(--wine);
+  font-size: 1.05rem;
+}
+
+/* Sürükle-bırak */
+
+.sort-pool,
+.zone-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 52px;
+}
+
+.zone {
+  min-height: 140px;
+  padding: 12px;
+  background: white;
+  border: 2px dashed #bea4b1;
+  border-radius: 13px;
+}
+
+.zone.over {
+  background: #fff3da;
+}
+
+.data-card {
+  color: var(--ink);
+  background: white;
+  border: 1px solid #bba8b2;
+}
+
+.data-card.selected {
+  outline: 3px solid var(--blue);
+}
+
+.data-card.correct {
+  background: #e7f6ed;
+  border-color: var(--green);
+}
+
+.data-card.wrong {
+  background: #fff0f2;
+  border-color: var(--red);
+}
+
+/* Momo-Lili */
+
+.creature {
+  display: grid;
+  place-items: center;
+  min-height: 210px;
+  padding: 10px;
+  text-align: center;
+  background: linear-gradient(120deg, #f1e9fa, #e8f4fb);
+  border-radius: 13px;
+}
+
+.creature svg {
+  width: 175px;
+  max-width: 100%;
+  animation: pop .35s ease;
+}
+
+/* Animasyon */
+
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.pipe-step {
+  min-height: 135px;
+  padding: 14px 10px;
+  text-align: center;
+  opacity: .4;
+  background: #f6f3f7;
+  border: 2px solid #ded5df;
+  border-radius: 14px;
+  transition: .35s;
+}
+
+.pipe-step.active {
+  opacity: 1;
+  transform: translateY(-5px);
+  background: #fff1f4;
+  border-color: var(--wine);
+  box-shadow: 0 9px 25px rgba(104,35,59,.14);
+}
+
+.pipe-step.complete {
+  opacity: 1;
+  background: #eef9f2;
+  border-color: var(--green);
+}
+
+.pipe-step .big {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 2.3rem;
+}
+
+.signal {
+  width: 24px;
+  height: 24px;
+  margin: 10px auto;
+  background: var(--gold);
+  border: 4px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--wine);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.18);
+    box-shadow: 0 0 0 8px rgba(104,35,59,.15);
+  }
+}
+
+/* Robot Bahçıvan */
+
+.training-card {
+  padding: 13px;
+  background: white;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+}
+
+.training-card.selected {
+  background: #f1fbf5;
+  border-color: var(--green);
+}
+
+.training-card .plant {
+  display: block;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.training-card button {
+  width: 100%;
+}
+
+.features {
+  padding-left: 18px;
+  font-size: .9rem;
+}
+
+.model-screen {
+  padding: 17px;
+  color: #e5f1ff;
+  background: #132339;
+  border-radius: 14px;
+}
+
+/* Raporlar */
+
+.report-preview,
+.poster-preview {
+  padding: 20px;
+  background: #fffbf2;
+  border: 7px double var(--wine);
+  border-radius: 14px;
+}
+
+.report-preview p,
+.poster-preview p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 30;
+  max-width: 90vw;
+  padding: 12px 19px;
+  color: white;
+  background: var(--wine-dark);
+  border-radius: 13px;
+  box-shadow: 0 8px 26px rgba(0,0,0,.35);
+  transform: translateX(-50%);
+}
+
+@keyframes pop {
+  from {
+    opacity: .3;
+    transform: scale(.82);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 850px) {
+  .grid,
+  .grid3,
+  .pipeline,
+  .header-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-icon {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  header,
+  #toolbar,
+  .page,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+  }
+
+  body.print-poster #lesson1Poster,
+  body.print-report #lesson2Report,
+  body.print-guide #teacherGuide {
+    display: block !important;
+  }
+
+  body.print-poster #lesson1Poster .grid,
+  body.print-report #lesson2Report .grid {
+    display: block;
+  }
+
+  body.print-poster #posterForm,
+  body.print-report #reportForm,
+  body.print-poster .nav,
+  body.print-report .nav,
+  body.print-guide .no-print {
+    display: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="wrap header-grid">
+    <div>
+      <strong>✦ Kırmızı Medrese Akademi</strong>
+      <h1>Yapay Zekâ Dedektifleri</h1>
+      <p>Ders 1 + Ders 2 · Teknoloji Eğitmeni Murat Kaynar</p>
+    </div>
+    <div class="hero-icon" aria-hidden="true">🤖🔎</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ORTAK ÜST ÇUBUK -->
+
+  <div id="toolbar" class="card">
+    <div class="row between">
+      <div class="hud">
+        <span class="pill">👥 <strong id="teamOut">YZ Dedektifleri</strong></span>
+        <span class="pill">⭐ <strong id="scoreOut">0</strong> puan</span>
+        <span class="pill">🖱️ <strong id="turnOut">Oyuncu 1/1</strong></span>
+      </div>
+
+      <div class="row">
+        <button class="alt" data-go="home">⌂ Ana sayfa</button>
+        <button class="alt" id="soundButton">🔇 Sesler kapalı</button>
+        <button class="quiet" id="resetProgress">İlerlemeyi sıfırla</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <strong>Ders 1 ilerlemesi</strong>
+        <div class="progress">
+          <div id="lesson1ProgressBar"></div>
+        </div>
+        <span id="lesson1ProgressText">0/8</span>
+      </div>
+
+      <div>
+        <strong>Ders 2 ilerlemesi</strong>
+        <div class="progress">
+          <div id="lesson2ProgressBar"></div>
+        </div>
+        <span id="lesson2ProgressText">0/8</span>
+      </div>
+    </div>
+
+    <p id="narrator" class="muted" aria-live="polite">
+      Ana sayfadan bir ders seçin.
+    </p>
+
+    <p class="small">
+      🏅 Rozetler:
+      <strong id="badgesOut">Henüz rozet yok</strong>
+    </p>
+  </div>
+
+  <!-- ANA SAYFA -->
+
+  <section id="home" class="page">
+
+    <div class="card">
+      <span class="flag">Ders merkezi</span>
+      <h2>Hangi derse devam edeceksiniz?</h2>
+
+      <p>
+        Ders 1 temel kavramları öğretir. Ders 2 ise bu kavramları kullanarak
+        veri seçme, model hazırlama ve hata düzeltme çalışmaları yaptırır.
+      </p>
+
+      <div class="note">
+        <strong>Önerilen sıra:</strong> Ders 1 tamamlandıktan sonra Ders 2’ye geçin.
+        Ancak dün Ders 1’i yaptıysanız doğrudan Ders 2’yi açabilirsiniz.
+      </div>
+
+      <button data-go="settings">Ortak ayarlar →</button>
+      <button class="alt" data-go="teacherGuide">Öğretmen el kitabı →</button>
+    </div>
+
+    <div class="grid">
+
+      <article class="lesson-select">
+        <div class="icon">📘</div>
+        <h2>Ders 1: Yapay Zekâyla Tanışma</h2>
+        <p>
+          YZ nedir, ne değildir, temel kavramlar, Momo–Lili,
+          gizlilik ve ilk değerlendirme.
+        </p>
+        <p>
+          <span class="pill" id="lesson1HomeProgress">0/8 tamamlandı</span>
+        </p>
+        <button data-go="lesson1Home">Ders 1’i aç →</button>
+      </article>
+
+      <article class="lesson-select">
+        <div class="icon">🌱</div>
+        <h2>Ders 2: Yapay Zekâ Nasıl Öğrenir?</h2>
+        <p>
+          Çalışma animasyonu, Robot Bahçıvan, veri kalitesi,
+          hata analizi ve modeli onarma.
+        </p>
+        <p>
+          <span class="pill" id="lesson2HomeProgress">0/8 tamamlandı</span>
+        </p>
+        <button data-go="lesson2Home">Ders 2’yi aç →</button>
+      </article>
+
+    </div>
+
+    <div class="card">
+      <h3>Önemli teknik not</h3>
+      <p class="small muted">
+        Bu tek HTML dosyası sonuçları yalnızca açık olduğu tarayıcıda saklar.
+        Öğrenci bilgisayarları arasında ortak ilerleme veya canlı öğretmen paneli yoktur.
+        Video haricindeki etkinlikler internet gerektirmez.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ORTAK AYARLAR -->
+
+  <section id="settings" class="page" hidden>
+
+    <div class="card">
+      <h2>⚙️ Ortak ders ayarları</h2>
+
+      <div class="note">
+        Gerçek ad, soyad veya özel bilgi yazmayın. Takma takım adı yeterlidir.
+      </div>
+
+      <div class="grid">
+
+        <div>
+          <label for="teamInput">Takma takım adı</label>
+          <input id="teamInput" maxlength="28"
+                 placeholder="Ör. Meraklı Robotlar">
+        </div>
+
+        <div>
+          <label for="playerInput">Oyuncu sayısı</label>
+          <select id="playerInput">
+            <option value="1">1 kişi</option>
+            <option value="2">2 kişi</option>
+            <option value="3">3 kişi</option>
+            <option value="4">4 kişi</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="levelInput">Düzey</label>
+          <select id="levelInput">
+            <option value="basic">Basit düzey</option>
+            <option value="medium">Orta düzey</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="examInput">Final sınavları</label>
+          <select id="examInput">
+            <option value="no">Süresiz</option>
+            <option value="yes">5 dakika süreli</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button id="saveSettings">Ayarları kaydet</button>
+
+      <div class="nav">
+        <button class="alt" data-go="home">← Ana sayfa</button>
+        <button data-go="lesson1Home">Ders 1 →</button>
+        <button data-go="lesson2Home">Ders 2 →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ======================================================
+       DERS 1 ANA SAYFA
+  ======================================================= -->
+
+  <section id="lesson1Home" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 1</span>
+      <h2>Yapay Zekâyla Tanışma</h2>
+
+      <div class="note">
+        <strong>Temel soru:</strong>
+        “Yapay zekâ nedir, nasıl çalışabilir ve neden yanılabilir?”
+      </div>
+
+      <p>
+        Aşağıdaki etkinlikleri sırayla yapabilirsiniz.
+        Dün bu dersi tamamladıysanız Ders 2’ye geçebilirsiniz.
+      </p>
+
+      <button data-go="l1Intro">Ders 1’e başla →</button>
+      <button class="alt" data-go="lesson2Home">Ders 2’ye geç →</button>
+
+      <div class="nav">
+        <button class="alt" data-go="home">← Ders merkezi</button>
+      </div>
+    </div>
+
+    <div id="lesson1Map" class="grid3"></div>
+
+  </section>
+
+  <!-- DERS 1: GİRİŞ -->
+
+  <section id="l1Intro" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 1 · Görev 1/8</span>
+      <h2>🤖 Yapay zekâ nedir?</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Yapay zekânın ne olduğunu ve ne olmadığını anlamak.<br>
+        <strong>Nasıl:</strong> Videoyu izleyin, metni okuyun ve üç kontrol sorusunu yanıtlayın.<br>
+        <strong>Süre:</strong> 25–35 dakika.
+      </div>
+
+      <h3>🎬 Giriş videosu</h3>
+
+      <button id="loadVideo">Videoyu yükle</button>
+
+      <div id="videoArea" class="video" hidden></div>
+
+      <p class="small">
+        <a href="https://www.youtube.com/watch?v=hcsn-XT_xd4&t=24s"
+           target="_blank" rel="noopener noreferrer">
+          Video açılmazsa YouTube’da izle ↗
+        </a>
+      </p>
+
+      <div class="grid">
+
+        <div class="inner lesson-card">
+          <h3>YZ nedir?</h3>
+          <p>
+            Yapay zekâ, bilgisayarların görüntü tanıma, öneri sunma,
+            konuşmayı yazıya çevirme veya metin oluşturma gibi görevleri
+            yapmasına yardımcı olan yöntemlerin genel adıdır.
+          </p>
+        </div>
+
+        <div class="inner lesson-card">
+          <h3>YZ ne değildir?</h3>
+          <p>
+            Her bilgisayar programı YZ değildir. Süre dolunca öten
+            zamanlayıcı veya basit hesap makinesi önceden belirlenmiş
+            kurallarla çalışabilir.
+          </p>
+        </div>
+
+        <div class="inner lesson-card">
+          <h3>Ne zaman başladı?</h3>
+          <p>
+            Yapay zekâ araştırmalarının geçmişi onlarca yıl öncesine uzanır.
+            “Yapay zekâ” adı 1956 yılıyla ilişkilendirilir.
+          </p>
+        </div>
+
+        <div class="inner lesson-card">
+          <h3>Nasıl çalışabilir?</h3>
+          <p>
+            Bazı sistemler örneklerden yararlanır, yeni bir girdi hakkında
+            tahmin üretir ve bu tahmin test edilir.
+          </p>
+        </div>
+
+        <div class="inner lesson-card">
+          <h3>Nerelerde kullanılır?</h3>
+          <p>
+            Eğitim, oyun, tarım, bilim, ulaşım, görüntü işleme ve
+            yaratıcı çalışmalarda yardımcı olabilir.
+          </p>
+        </div>
+
+        <div class="inner lesson-card">
+          <h3>Neden kontrol gerekir?</h3>
+          <p>
+            YZ tahminleri yanlış olabilir. Düzgün görünen bir metin de
+            hatalı bilgi içerebilir.
+          </p>
+        </div>
+
+      </div>
+
+      <h3>🎯 Giriş kontrolü</h3>
+
+      <button id="startL1IntroQuiz">Kontrol sorularını başlat</button>
+      <div id="l1IntroQuiz" class="inner" hidden></div>
+
+      <div class="nav">
+        <button class="alt" data-go="lesson1Home">← Ders 1 haritası</button>
+        <button data-go="l1Atlas">Kavram Atlası →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 1: KAVRAM ATLASI -->
+
+  <section id="l1Atlas" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 1 · Görev 2/8</span>
+      <h2>📚 Yapay Zekâ Kavram Atlası</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Sonraki oyunlarda kullanılan kavramları öğrenmek.<br>
+        <strong>Nasıl:</strong> Her kartı okuyun ve örneği kendi cümlenizle açıklayın.<br>
+        <strong>Süre:</strong> 20–25 dakika.
+      </div>
+
+      <div id="termCards"></div>
+
+      <button id="finishAtlas">Kavramları inceledim</button>
+
+      <div class="nav">
+        <button class="alt" data-go="l1Intro">← Giriş</button>
+        <button data-go="l1Puzzle">Kavram Bulmacası →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 1: KAVRAM BULMACASI -->
+
+  <section id="l1Puzzle" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 1 · Görev 3/8</span>
+      <h2>🧩 Kavram Bulmacası</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Kavramları gerçek örneklerle eşleştirmek.<br>
+        <strong>Nasıl:</strong> Soruyu okuyun ve doğru kavramı seçin.
+        Yanlış yanıtta doğru cevap gösterilir.<br>
+        <strong>Süre:</strong> 10–15 dakika.
+      </div>
+
+      <button id="startL1Puzzle">Bulmacayı başlat / yeniden oyna</button>
+      <div id="l1PuzzleGame" class="inner" hidden></div>
+
+      <div class="nav">
+        <button class="alt" data-go="l1Atlas">← Kavram Atlası</button>
+        <button data-go="l1Cases">YZ mi, değil mi? →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 1: YENİ VAKA SORULARI -->
+
+  <section id="l1Cases" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 1 · Görev 4/8</span>
+      <h2>🎴 YZ mi, kural mı?</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> YZ kullanabilen sistemlerle basit kuralları ayırmak.<br>
+        <strong>Nasıl:</strong> Seçmeden önce gerekçe söyleyin.
+        Yanlış yanıtta doğru cevap ve açıklama gösterilir.<br>
+        <strong>Süre:</strong> 12–18 dakika.
+      </div>
+
+      <button id="startL1Cases">Vaka oyununu başlat / yeniden oyna</button>
+      <div id="l1CasesGame" class="inner" hidden></div>
+
+      <div class="nav">
+        <button class="alt" data-go="l1Puzzle">← Bulmaca</button>
+        <button data-go="l1Sort">Sınıflandırma →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 1: SINIFLANDIRMA -->
+
+  <section id="l1Sort" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 1 · Görev 5/8</span>
+      <h2>🧲 Yeni örneklerle sınıflandırma</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Olası YZ, basit kural, özel bilgi ve
+        belirsiz durumları ayırmak.<br>
+        <strong>Bilgisayarda:</strong> Kartı sürükleyin.<br>
+        <strong>Tablette:</strong> Önce karta, sonra kutunun düğmesine dokunun.<br>
+        <strong>Süre:</strong> 12–18 dakika.
+      </div>
+
+      <h3>Başlangıç kartları</h3>
+      <div id="l1SortPool" class="inner sort-pool"></div>
+
+      <div id="l1SortZones" class="grid"></div>
+
+      <p id="l1SortFeedback" class="feedback" aria-live="polite">
+        Bir kart seçin.
+      </p>
+
+      <button id="resetL1Sort" class="alt">Kartları yeniden başlat</button>
+
+      <div class="nav">
+        <button class="alt" data-go="l1Cases">← Vaka oyunu</button>
+        <button data-go="l1Momo">Momo–Lili →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 1: MOMO-LILI -->
+
+  <section id="l1Momo" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 1 · Görev 6/8</span>
+      <h2>👾 Momo–Lili Tahmin Simülasyonu</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Eğitim örneği, test örneği ve tahmini görmek.<br>
+        <strong>Nasıl:</strong> Örnekleri inceleyin, yeni canlıyı tahmin edin,
+        simülasyonu çalıştırın ve yeni bir eğitim örneği ekleyin.<br>
+        <strong>Süre:</strong> 15–20 dakika.<br>
+        <strong>Not:</strong> Bu gerçek YZ değil; özellik benzerliği kullanan
+        öğretim simülasyonudur.
+      </div>
+
+      <button id="startMomo">Simülasyonu başlat / sıfırla</button>
+
+      <div id="momoBody" hidden>
+
+        <div class="inner">
+          <h3>Eğitim örnekleri</h3>
+          <div id="momoExamples" class="row"></div>
+        </div>
+
+        <div class="grid">
+
+          <div class="inner">
+            <h3>Yeni test kartı</h3>
+            <div id="momoCreature" class="creature"></div>
+            <p>Sarı · 1 anten · benekli</p>
+
+            <label for="momoGuess">Önce senin tahminin</label>
+            <select id="momoGuess">
+              <option value="">Seç</option>
+              <option>Momo</option>
+              <option>Lili</option>
+              <option>Emin değilim</option>
+            </select>
+
+            <button id="testMomo">Simülasyonu çalıştır</button>
+          </div>
+
+          <div class="inner">
+            <h3>Deney sonucu</h3>
+            <p id="momoFeedback" class="feedback" aria-live="polite">
+              Önce tahmin yapın.
+            </p>
+
+            <div class="row">
+              <button id="addMomoExample" class="alt" hidden>
+                Farklı eğitim örneği ekle
+              </button>
+
+              <button id="retestMomo" hidden>
+                Tekrar test et
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="nav">
+        <button class="alt" data-go="l1Sort">← Sınıflandırma</button>
+        <button data-go="l1Safety">Güvenlik →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 1: GÜVENLİK -->
+
+  <section id="l1Safety" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 1 · Görev 7/8</span>
+      <h2>🛡️ Güvenli YZ kullanımı</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Kişisel bilgiyi korumak ve YZ yanıtlarını kontrol etmek.<br>
+        <strong>Nasıl:</strong> En güvenli davranışı seçin.
+        Yanlış yanıtta doğru cevap açıklanır.<br>
+        <strong>Süre:</strong> 8–12 dakika.
+      </div>
+
+      <button id="startL1Safety">Güvenlik oyununu başlat</button>
+      <div id="l1SafetyGame" class="inner" hidden></div>
+
+      <div class="nav">
+        <button class="alt" data-go="l1Momo">← Momo–Lili</button>
+        <button data-go="l1Exam">Ders 1 finali →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 1: FİNAL VE POSTER -->
+
+  <section id="l1Exam" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 1 · Görev 8/8</span>
+      <h2>🏁 Ders 1 finali</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Ders 1’de öğrendiklerini yeni örneklerde kullanmak.<br>
+        <strong>Nasıl:</strong> Soruları yanıtlayın. Yanlış yanıtta doğru cevap
+        ve açıklama gösterilir.
+      </div>
+
+      <button id="startL1Exam">Finali başlat</button>
+      <div id="l1ExamGame" class="inner" hidden></div>
+
+      <h3>İsteğe bağlı Ders 1 posteri</h3>
+
+      <button class="alt" data-go="lesson1Poster">
+        Ders 1 posteri hazırla →
+      </button>
+
+      <div class="nav">
+        <button class="alt" data-go="l1Safety">← Güvenlik</button>
+        <button data-go="lesson2Home">Ders 2’ye geç →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 1: POSTER -->
+
+  <section id="lesson1Poster" class="page" hidden>
+
+    <div class="card">
+      <h2>🖊️ Ders 1: YZ Dedektifi Posteri</h2>
+
+      <div class="note">
+        Bir sistem seçin. Ne yaptığını, YZ kullanıp kullanamayacağını,
+        hangi veriyi kullanabileceğini, nerede yanılabileceğini ve
+        insanın neyi kontrol etmesi gerektiğini yazın.
+      </div>
+
+      <details class="inner" open>
+        <summary><strong>Tamamlanmış örneği gör</strong></summary>
+        <p><strong>Başlık:</strong> El yazısını tanıyan uygulama</p>
+        <p><strong>Ne yapıyor?</strong> Yazdığım harfleri tahmin ediyor.</p>
+        <p><strong>YZ gerekçesi:</strong> Farklı yazı örneklerinden yararlanıyor olabilir.</p>
+        <p><strong>Veri:</strong> Etiketlenmiş el yazısı örnekleri.</p>
+        <p><strong>Hata:</strong> Çok eğik veya silik yazıyı yanlış tanıyabilir.</p>
+        <p><strong>Kontrol:</strong> Tahminin yazdığım harfle aynı olup olmadığı.</p>
+      </details>
+
+      <div class="grid">
+
+        <div id="posterForm">
+
+          <label for="pTitle">Başlık</label>
+          <input id="pTitle" maxlength="75"
+                 placeholder="Örn. El yazısını tanıyan uygulama">
+
+          <label for="pWhat">Sistem ne yapıyor?</label>
+          <textarea id="pWhat" maxlength="350"
+                    placeholder="Bu sistem ... yapıyor."></textarea>
+
+          <label for="pWhy">YZ olabilir mi? Neden?</label>
+          <textarea id="pWhy" maxlength="350"
+                    placeholder="YZ kullanıyor olabilir çünkü ..."></textarea>
+
+          <label for="pData">Hangi veriyi kullanıyor olabilir?</label>
+          <textarea id="pData" maxlength="350"
+                    placeholder="Kullanabileceği örnekler ..."></textarea>
+
+          <label for="pError">Nerede yanılabilir?</label>
+          <textarea id="pError" maxlength="350"
+                    placeholder="Şu durumda yanılabilir: ..."></textarea>
+
+          <label for="pCheck">İnsan neyi kontrol etmeli?</label>
+          <textarea id="pCheck" maxlength="350"
+                    placeholder="İnsan ... kontrol etmeli."></textarea>
+
+          <button id="checkPoster">Posteri kontrol et</button>
+          <button id="printPoster" class="alt">PDF / yazdır</button>
+
+          <p id="posterFeedback" class="feedback">
+            Altı alanı açıklayıcı cümlelerle doldurun.
+          </p>
+
+        </div>
+
+        <article class="poster-preview">
+          <p><strong>Kırmızı Medrese Akademi · Ders 1</strong></p>
+
+          <h2 id="pvTitle">Poster başlığı</h2>
+
+          <p><strong>Ne yapıyor?</strong><br>
+            <span id="pvWhat">—</span></p>
+
+          <p><strong>YZ gerekçesi</strong><br>
+            <span id="pvWhy">—</span></p>
+
+          <p><strong>Veri</strong><br>
+            <span id="pvData">—</span></p>
+
+          <p><strong>Olası hata</strong><br>
+            <span id="pvError">—</span></p>
+
+          <p><strong>İnsan kontrolü</strong><br>
+            <span id="pvCheck">—</span></p>
+
+          <p class="small">Teknoloji Eğitmeni Murat Kaynar</p>
+        </article>
+
+      </div>
+
+      <div class="nav">
+        <button class="alt" data-go="l1Exam">← Ders 1 finali</button>
+        <button data-go="home">Ana sayfa</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ======================================================
+       DERS 2 ANA SAYFA
+  ======================================================= -->
+
+  <section id="lesson2Home" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 2</span>
+      <h2>Yapay Zekâ Nasıl Öğrenir?</h2>
+
+      <p>
+        Bu derste dünkü oyunları tekrarlamak yerine eğitim verisi,
+        veri kalitesi, model hataları ve modeli geliştirme üzerinde çalışacağız.
+      </p>
+
+      <div class="note">
+        <strong>Bugünün ana sorusu:</strong>
+        “Bir modelin tahmini, ona gösterdiğimiz örneklerden nasıl etkilenir?”
+      </div>
+
+      <button data-go="l2Recap">Ders 2’ye başla →</button>
+      <button class="alt" data-go="lesson1Home">Ders 1’e dön →</button>
+
+      <div class="nav">
+        <button class="alt" data-go="home">← Ders merkezi</button>
+      </div>
+    </div>
+
+    <div id="lesson2Map" class="grid3"></div>
+
+  </section>
+
+  <!-- DERS 2: TEKRAR -->
+
+  <section id="l2Recap" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 2 · Görev 1/8</span>
+      <h2>🧠 Yeni örneklerle kısa tekrar</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Dünkü bilgileri farklı örneklerle hatırlamak.<br>
+        <strong>Nasıl:</strong> Önce gerekçe söyleyin, sonra seçin.
+        Yanlış yanıtta doğru cevap gösterilir.<br>
+        <strong>Süre:</strong> 10–15 dakika.
+      </div>
+
+      <button id="startL2Recap">Tekrar oyununu başlat</button>
+      <div id="l2RecapGame" class="inner" hidden></div>
+
+      <div class="nav">
+        <button class="alt" data-go="lesson2Home">← Ders 2 haritası</button>
+        <button data-go="l2Pipeline">Animasyon →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 2: ANİMASYON -->
+
+  <section id="l2Pipeline" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 2 · Görev 2/8</span>
+      <h2>⚙️ Bir tahmin sistemi nasıl çalışır?</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Girdi, özellik, eğitim örneği, çıktı ve
+        kontrolün süreçteki yerini görmek.<br>
+        <strong>Nasıl:</strong> “Sonraki adım” düğmesine basın ve
+        her açıklamayı okuyun.<br>
+        <strong>Süre:</strong> 12–18 dakika.
+      </div>
+
+      <p class="small muted">
+        Bu, bir sınıflandırma sisteminin basitleştirilmiş öğretim animasyonudur.
+        Bütün YZ sistemleri aynı biçimde çalışmaz.
+      </p>
+
+      <div class="pipeline">
+
+        <div class="pipe-step" id="pipe0">
+          <span class="big">📥</span>
+          <strong>1. Girdi</strong>
+          <p class="small">Yeni bitki görüntüsü gelir.</p>
+        </div>
+
+        <div class="pipe-step" id="pipe1">
+          <span class="big">👀</span>
+          <strong>2. Özellikler</strong>
+          <p class="small">Renk, benek ve eğiklik incelenir.</p>
+        </div>
+
+        <div class="pipe-step" id="pipe2">
+          <span class="big">🗂️</span>
+          <strong>3. Eğitim örnekleri</strong>
+          <p class="small">Önceki örneklerle karşılaştırılır.</p>
+        </div>
+
+        <div class="pipe-step" id="pipe3">
+          <span class="big">💭</span>
+          <strong>4. Çıktı</strong>
+          <p class="small">Model bir tahmin üretir.</p>
+        </div>
+
+        <div class="pipe-step" id="pipe4">
+          <span class="big">✅</span>
+          <strong>5. Test</strong>
+          <p class="small">Tahmin gerçek sonuçla karşılaştırılır.</p>
+        </div>
+
+      </div>
+
+      <div id="pipelineVisual" class="model-screen">
+        <h3>Robot Bahçıvan bekliyor…</h3>
+        <p>Animasyonu başlatmak için düğmeye basın.</p>
+      </div>
+
+      <div class="row">
+        <button id="nextPipeline">Animasyonu başlat →</button>
+        <button id="resetPipeline" class="alt">Başa dön</button>
+      </div>
+
+      <p id="pipelineFeedback" class="feedback">
+        İlk olarak sisteme yeni bir girdi verilecek.
+      </p>
+
+      <div class="nav">
+        <button class="alt" data-go="l2Recap">← Tekrar</button>
+        <button data-go="l2Trainer">Robot Bahçıvan →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 2: ROBOT BAHÇIVAN -->
+
+  <section id="l2Trainer" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 2 · Görev 3/8</span>
+      <h2>🌱 Robot Bahçıvanı eğit</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Eğitim verilerini seçerek model sonucunu incelemek.<br>
+        <strong>Nasıl:</strong> En az dört örnek seçin. Hem “Rutin” hem
+        “Kontrol” etiketinden örnek bulunmalı. Sonra yeni bitkileri test edin.<br>
+        <strong>Süre:</strong> 35–50 dakika.
+      </div>
+
+      <div class="feedback">
+        Bu gerçek bir bitki tanı sistemi değildir. Hayalî bir serada
+        çalışan özellik-benzerliği simülasyonudur.
+      </div>
+
+      <h3>1 · Eğitim örneklerini seç</h3>
+
+      <div id="trainingLibrary" class="grid3"></div>
+
+      <div class="inner">
+        <p>
+          Seçili örnek:
+          <strong id="trainingCount">0</strong>
+        </p>
+
+        <p id="trainingRequirement" class="muted">
+          En az dört örnek ve iki farklı etiket gerekli.
+        </p>
+
+        <button id="trainModel" disabled>Modeli hazırla</button>
+        <button id="resetTraining" class="alt">Seçimleri temizle</button>
+      </div>
+
+      <div id="modelReady" hidden>
+
+        <h3>2 · Yeni bitkileri test et</h3>
+
+        <div class="grid">
+
+          <div class="inner">
+            <div id="testPlantIcon"
+                 style="font-size:5rem;text-align:center">🌱</div>
+
+            <h3 id="testPlantTitle">Yeni bitki</h3>
+
+            <ul id="testPlantFeatures" class="features"></ul>
+
+            <label for="studentPlantGuess">Önce senin tahminin</label>
+
+            <select id="studentPlantGuess">
+              <option value="">Seç</option>
+              <option value="Rutin">Rutin</option>
+              <option value="Kontrol">Kontrol</option>
+              <option value="Emin değilim">Emin değilim</option>
+            </select>
+
+            <button id="testPlantButton">Modeli çalıştır</button>
+          </div>
+
+          <div class="model-screen">
+            <h3>Model ekranı</h3>
+            <div id="modelResult">
+              Yeni bir bitkiyi test etmeye hazır.
+            </div>
+
+            <button id="nextPlant" hidden>Sonraki bitki →</button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="nav">
+        <button class="alt" data-go="l2Pipeline">← Animasyon</button>
+        <button data-go="l2Quality">Veri Kalitesi →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 2: VERİ KALİTESİ -->
+
+  <section id="l2Quality" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 2 · Görev 4/8</span>
+      <h2>🧲 Veri Kalitesi Kurtarma Merkezi</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Faydalı, yetersiz ve sorunlu verileri ayırmak.<br>
+        <strong>Bilgisayarda:</strong> Kartı sürükleyin.<br>
+        <strong>Tablette:</strong> Önce karta, sonra kutuya dokunun.<br>
+        <strong>Süre:</strong> 15–20 dakika.
+      </div>
+
+      <h3>Karışık veri kartları</h3>
+
+      <div id="qualityPool" class="inner sort-pool"></div>
+
+      <div id="qualityZones" class="grid3"></div>
+
+      <p id="qualityFeedback" class="feedback" aria-live="polite">
+        Bir veri kartı seçin.
+      </p>
+
+      <button id="resetQuality" class="alt">Kartları yeniden başlat</button>
+
+      <div class="nav">
+        <button class="alt" data-go="l2Trainer">← Robot Bahçıvan</button>
+        <button data-go="l2Errors">Hata Dedektifi →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 2: HATA DEDEKTİFİ -->
+
+  <section id="l2Errors" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 2 · Görev 5/8</span>
+      <h2>🔍 Hata Dedektifi</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Bir model yanıldığında olası nedeni araştırmak.<br>
+        <strong>Nasıl:</strong> Hatayı okuyun ve en güçlü olası nedeni seçin.
+        Yanlış yanıtta doğru cevap gösterilir.<br>
+        <strong>Süre:</strong> 15–20 dakika.
+      </div>
+
+      <button id="startL2Errors">Hata vakalarını başlat</button>
+      <div id="l2ErrorsGame" class="inner" hidden></div>
+
+      <div class="nav">
+        <button class="alt" data-go="l2Quality">← Veri Kalitesi</button>
+        <button data-go="l2Repair">Modeli Onar →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 2: MODELİ ONAR -->
+
+  <section id="l2Repair" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 2 · Görev 6/8</span>
+      <h2>🛠️ Modeli Onar</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Bir modelin sorununa uygun iyileştirmeyi seçmek.<br>
+        <strong>Nasıl:</strong> Sorunu inceleyin ve en uygun veri değişikliğini seçin.<br>
+        <strong>Süre:</strong> 20–25 dakika.
+      </div>
+
+      <button id="startRepair">Onarım görevlerini başlat</button>
+      <div id="repairGame" class="inner" hidden></div>
+
+      <div class="nav">
+        <button class="alt" data-go="l2Errors">← Hata Dedektifi</button>
+        <button data-go="l2Exam">Ders 2 finali →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 2: FİNAL -->
+
+  <section id="l2Exam" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 2 · Görev 7/8</span>
+      <h2>🏁 Ders 2 finali</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Eğitim verisi, veri kalitesi ve model geliştirme
+        konularını değerlendirmek.<br>
+        <strong>Nasıl:</strong> Soruları yanıtlayın. Yanlış yanıtta doğru
+        cevap ve açıklama gösterilir.
+      </div>
+
+      <button id="startL2Exam">Finali başlat</button>
+      <p id="l2ExamClock" class="pill" hidden></p>
+      <div id="l2ExamGame" class="inner" hidden></div>
+
+      <div class="nav">
+        <button class="alt" data-go="l2Repair">← Modeli Onar</button>
+        <button data-go="lesson2Report">Deney raporu →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- DERS 2: RAPOR -->
+
+  <section id="lesson2Report" class="page" hidden>
+
+    <div class="card">
+      <span class="flag">Ders 2 · Görev 8/8</span>
+      <h2>📝 Robot Bahçıvan Deney Raporu</h2>
+
+      <div class="note">
+        <strong>Amaç:</strong> Bugünkü deneyini bilimsel bir rapora dönüştürmek.<br>
+        <strong>Nasıl:</strong> Altı alanı doldurun. Her alan için
+        örnek ve açıklama verilmiştir.
+      </div>
+
+      <details class="inner" open>
+        <summary><strong>Tamamlanmış örnek raporu gör</strong></summary>
+
+        <p><strong>Araştırma sorusu:</strong>
+          Farklı örnekler eklemek modelin tahminini değiştirir mi?</p>
+
+        <p><strong>Veriler:</strong>
+          Farklı renk, benek ve eğiklik özelliklerinde örnekler kullandım.</p>
+
+        <p><strong>İlk test:</strong>
+          Ben “Kontrol” dedim; model “Rutin” çıktısını verdi.</p>
+
+        <p><strong>Sorun:</strong>
+          Eğitim verileri yeterince çeşitli değildi.</p>
+
+        <p><strong>Değişiklik:</strong>
+          Farklı renkte ve benekli Kontrol örnekleri eklerdim.</p>
+
+        <p><strong>Sonuç:</strong>
+          Eğitim verisi sonucu etkiledi; ancak tek test tüm yeni
+          durumlarda başarıyı kanıtlamadı.</p>
+      </details>
+
+      <div class="grid">
+
+        <div id="reportForm">
+
+          <label for="rQuestion">1 · Araştırma sorun neydi?</label>
+          <p class="small muted">Soru cümlesi yazın.</p>
+          <textarea id="rQuestion" maxlength="400"
+                    placeholder="Araştırma sorum: ..."></textarea>
+
+          <label for="rData">2 · Hangi eğitim verilerini kullandın?</label>
+          <textarea id="rData" maxlength="400"
+                    placeholder="Renk, benek ve eğiklik açısından ..."></textarea>
+
+          <label for="rFirst">3 · İlk testte ne oldu?</label>
+          <textarea id="rFirst" maxlength="400"
+                    placeholder="Ben ... tahmin ettim; model ... dedi."></textarea>
+
+          <label for="rProblem">4 · Hangi sorunu gözlemledin?</label>
+          <textarea id="rProblem" maxlength="400"
+                    placeholder="Olası veri sorunu ..."></textarea>
+
+          <label for="rChange">5 · Neyi değiştirirdin?</label>
+          <textarea id="rChange" maxlength="400"
+                    placeholder="Şu özellikte yeni örnekler eklerdim: ..."></textarea>
+
+          <label for="rConclusion">6 · Sonucun nedir?</label>
+          <textarea id="rConclusion" maxlength="400"
+                    placeholder="Deney şunu gösterdi; ancak şunu kanıtlamadı: ..."></textarea>
+
+          <button id="saveReport">Raporu kontrol et</button>
+          <button id="printReport" class="alt">PDF / yazdır</button>
+
+          <p id="reportFeedback" class="feedback">
+            Altı bölümü açıklayıcı cümlelerle doldurun.
+          </p>
+
+        </div>
+
+        <article class="report-preview">
+          <p><strong>Kırmızı Medrese Akademi · Ders 2</strong></p>
+          <h2>Robot Bahçıvan Deney Raporu</h2>
+
+          <p><strong>Araştırma sorusu</strong><br>
+            <span id="rvQuestion">—</span></p>
+
+          <p><strong>Eğitim verilerim</strong><br>
+            <span id="rvData">—</span></p>
+
+          <p><strong>İlk test</strong><br>
+            <span id="rvFirst">—</span></p>
+
+          <p><strong>Gözlemlediğim sorun</strong><br>
+            <span id="rvProblem">—</span></p>
+
+          <p><strong>Yaptığım değişiklik</strong><br>
+            <span id="rvChange">—</span></p>
+
+          <p><strong>Sonucum</strong><br>
+            <span id="rvConclusion">—</span></p>
+
+          <p class="small">
+            Takım: <span id="reportTeam">Model Takımı</span><br>
+            Teknoloji Eğitmeni Murat Kaynar
+          </p>
+        </article>
+
+      </div>
+
+      <div class="nav">
+        <button class="alt" data-go="l2Exam">← Ders 2 finali</button>
+        <button data-go="home">Ana sayfa</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ÖĞRETMEN KILAVUZU -->
+
+  <section id="teacherGuide" class="page" hidden>
+
+    <div class="card">
+      <h2>🧑‍🏫 Birleştirilmiş Öğretmen El Kitabı</h2>
+
+      <div class="note">
+        <strong>Ders 1:</strong> YZ nedir, temel kavramlar ve ilk simülasyon.<br>
+        <strong>Ders 2:</strong> Eğitim verisi, veri kalitesi, hata analizi ve model geliştirme.
+      </div>
+
+      <h3>Ders 1 önerilen akış</h3>
+
+      <div class="grid">
+        <div class="inner"><strong>0–35 dk:</strong> Video ve YZ anlatımı.</div>
+        <div class="inner"><strong>35–65 dk:</strong> Kavram Atlası ve bulmaca.</div>
+        <div class="inner"><strong>65–90 dk:</strong> Vaka oyunu.</div>
+        <div class="inner"><strong>90–100 dk:</strong> Mola.</div>
+        <div class="inner"><strong>100–130 dk:</strong> Sınıflandırma.</div>
+        <div class="inner"><strong>130–165 dk:</strong> Momo–Lili simülasyonu.</div>
+        <div class="inner"><strong>165–175 dk:</strong> Mola.</div>
+        <div class="inner"><strong>175–210 dk:</strong> Güvenlik ve final.</div>
+        <div class="inner"><strong>210–240 dk:</strong> Poster ve paylaşım.</div>
+      </div>
+
+      <h3>Ders 2 önerilen akış</h3>
+
+      <div class="grid">
+        <div class="inner"><strong>0–15 dk:</strong> Yeni örneklerle tekrar.</div>
+        <div class="inner"><strong>15–35 dk:</strong> Animasyonlu çalışma hattı.</div>
+        <div class="inner"><strong>35–85 dk:</strong> Robot Bahçıvan.</div>
+        <div class="inner"><strong>85–95 dk:</strong> Mola.</div>
+        <div class="inner"><strong>95–125 dk:</strong> Veri Kalitesi.</div>
+        <div class="inner"><strong>125–155 dk:</strong> Hata Dedektifi.</div>
+        <div class="inner"><strong>155–165 dk:</strong> Mola.</div>
+        <div class="inner"><strong>165–195 dk:</strong> Modeli Onar.</div>
+        <div class="inner"><strong>195–215 dk:</strong> Final.</div>
+        <div class="inner"><strong>215–240 dk:</strong> Deney raporu.</div>
+      </div>
+
+      <h3>Ders 2’de vurgulanacak ana fikirler</h3>
+
+      <ul>
+        <li>Daha fazla veri her zaman yeterli değildir; uygun ve çeşitli veri gerekir.</li>
+        <li>Yanlış etiket, modele hatalı örnek sunabilir.</li>
+        <li>Modeli eğitimde kullanılmayan yeni örneklerle test etmek gerekir.</li>
+        <li>Tek bir doğru sonuç bütün yeni durumlar için kanıt değildir.</li>
+        <li>Bir hata görünce kesin neden söylemek yerine olası nedenler araştırılır.</li>
+      </ul>
+
+      <button id="printGuide">Öğretmen el kitabını yazdır / PDF</button>
+
+      <div class="nav">
+        <button data-go="home">Ana sayfa</button>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<div id="toast" hidden role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* =========================================================
+   TEMEL YARDIMCI FONKSİYONLAR
+========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const ALL_PAGES = [
+  "home",
+  "settings",
+
+  "lesson1Home",
+  "l1Intro",
+  "l1Atlas",
+  "l1Puzzle",
+  "l1Cases",
+  "l1Sort",
+  "l1Momo",
+  "l1Safety",
+  "l1Exam",
+  "lesson1Poster",
+
+  "lesson2Home",
+  "l2Recap",
+  "l2Pipeline",
+  "l2Trainer",
+  "l2Quality",
+  "l2Errors",
+  "l2Repair",
+  "l2Exam",
+  "lesson2Report",
+
+  "teacherGuide"
+];
+
+const LESSON1_TASKS = [
+  ["l1Intro", "📘", "YZ nedir?"],
+  ["l1Atlas", "📚", "Kavram Atlası"],
+  ["l1Puzzle", "🧩", "Kavram Bulmacası"],
+  ["l1Cases", "🎴", "YZ mi, kural mı?"],
+  ["l1Sort", "🧲", "Sınıflandırma"],
+  ["l1Momo", "👾", "Momo–Lili"],
+  ["l1Safety", "🛡️", "Güvenlik"],
+  ["l1Exam", "🏁", "Ders 1 finali"]
+];
+
+const LESSON2_TASKS = [
+  ["l2Recap", "🧠", "Yeni örneklerle tekrar"],
+  ["l2Pipeline", "⚙️", "Çalışma animasyonu"],
+  ["l2Trainer", "🌱", "Robot Bahçıvan"],
+  ["l2Quality", "🧲", "Veri Kalitesi"],
+  ["l2Errors", "🔍", "Hata Dedektifi"],
+  ["l2Repair", "🛠️", "Modeli Onar"],
+  ["l2Exam", "🏁", "Ders 2 finali"],
+  ["lesson2Report", "📝", "Deney raporu"]
+];
+
+const STORAGE_KEY = "kma-ai-lessons-1-2-v3";
+
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function readStorage() {
+  try {
+    return JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || "{}"
+    );
+  } catch {
+    return {};
+  }
+}
+
+function saveStorage() {
+  try {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        team: state.team,
+        players: state.players,
+        level: state.level,
+        timed: state.timed,
+        score: state.score,
+        lesson1Done: [...state.lesson1Done],
+        lesson2Done: [...state.lesson2Done],
+        earned: [...state.earned]
+      })
+    );
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function toast(message) {
+  const element = $("toast");
+
+  element.textContent = message;
+  element.hidden = false;
+
+  clearTimeout(toast.timer);
+
+  toast.timer = setTimeout(() => {
+    element.hidden = true;
+  }, 2600);
+}
+
+/* =========================================================
+   DURUM
+========================================================= */
+
+const stored = readStorage();
+
+const state = {
+  team:
+    typeof stored.team === "string"
+      ? stored.team.slice(0, 28)
+      : "YZ Dedektifleri",
+
+  players:
+    [1, 2, 3, 4].includes(stored.players)
+      ? stored.players
+      : 1,
+
+  level:
+    stored.level === "medium"
+      ? "medium"
+      : "basic",
+
+  timed: !!stored.timed,
+
+  score:
+    Number.isFinite(stored.score)
+      ? Math.max(0, stored.score)
+      : 0,
+
+  turn: 0,
+
+  lesson1Done: new Set(
+    Array.isArray(stored.lesson1Done)
+      ? stored.lesson1Done.filter(id =>
+          LESSON1_TASKS.some(task => task[0] === id)
+        )
+      : []
+  ),
+
+  lesson2Done: new Set(
+    Array.isArray(stored.lesson2Done)
+      ? stored.lesson2Done.filter(id =>
+          LESSON2_TASKS.some(task => task[0] === id)
+        )
+      : []
+  ),
+
+  earned: new Set(
+    Array.isArray(stored.earned)
+      ? stored.earned
+      : []
+  ),
+
+  page: "home"
+};
+
+/* =========================================================
+   SESLER
+========================================================= */
+
+let soundEnabled = false;
+let audioContext = null;
+
+function playNotes(notes, type = "sine") {
+  if (!soundEnabled) return;
+
+  try {
+    audioContext ||= new (
+      window.AudioContext ||
+      window.webkitAudioContext
+    )();
+
+    audioContext.resume();
+
+    notes.forEach((frequency, index) => {
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      const start =
+        audioContext.currentTime + index * .12;
+
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(
+        frequency,
+        start
+      );
+
+      gain.gain.setValueAtTime(.0001, start);
+      gain.gain.exponentialRampToValueAtTime(
+        .075,
+        start + .025
+      );
+      gain.gain.exponentialRampToValueAtTime(
+        .0001,
+        start + .2
+      );
+
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+
+      oscillator.start(start);
+      oscillator.stop(start + .22);
+    });
+
+  } catch {
+    /* Ses desteklenmiyorsa uygulama sessiz devam eder. */
+  }
+}
+
+function successSound() {
+  playNotes([523, 659, 784], "sine");
+}
+
+function wrongSound() {
+  playNotes([310, 225], "triangle");
+}
+
+$("soundButton").addEventListener("click", () => {
+  soundEnabled = !soundEnabled;
+
+  $("soundButton").textContent =
+    soundEnabled
+      ? "🔊 Sesler açık"
+      : "🔇 Sesler kapalı";
+
+  if (soundEnabled) {
+    successSound();
+  }
+});
+
+/* =========================================================
+   İLERLEME VE ARAYÜZ
+========================================================= */
+
+function countDone(taskList, doneSet) {
+  return taskList.filter(task =>
+    doneSet.has(task[0])
+  ).length;
+}
+
+function updateInterface() {
+  $("teamOut").textContent = state.team;
+  $("scoreOut").textContent = String(state.score);
+
+  $("turnOut").textContent =
+    `Oyuncu ${state.turn + 1}/${state.players}`;
+
+  const lesson1Count =
+    countDone(LESSON1_TASKS, state.lesson1Done);
+
+  const lesson2Count =
+    countDone(LESSON2_TASKS, state.lesson2Done);
+
+  $("lesson1ProgressText").textContent =
+    `${lesson1Count}/${LESSON1_TASKS.length}`;
+
+  $("lesson2ProgressText").textContent =
+    `${lesson2Count}/${LESSON2_TASKS.length}`;
+
+  $("lesson1ProgressBar").style.width =
+    `${lesson1Count / LESSON1_TASKS.length * 100}%`;
+
+  $("lesson2ProgressBar").style.width =
+    `${lesson2Count / LESSON2_TASKS.length * 100}%`;
+
+  $("lesson1HomeProgress").textContent =
+    `${lesson1Count}/${LESSON1_TASKS.length} tamamlandı`;
+
+  $("lesson2HomeProgress").textContent =
+    `${lesson2Count}/${LESSON2_TASKS.length} tamamlandı`;
+
+  const badges = [];
+
+  if (state.lesson1Done.has("l1Atlas") &&
+      state.lesson1Done.has("l1Puzzle")) {
+    badges.push("📚 Kavram Ustası");
+  }
+
+  if (state.lesson1Done.has("l1Momo")) {
+    badges.push("👾 Tahmin Dedektifi");
+  }
+
+  if (state.lesson1Done.size === LESSON1_TASKS.length) {
+    badges.push("🌟 Ders 1 Kaşifi");
+  }
+
+  if (state.lesson2Done.has("l2Trainer")) {
+    badges.push("🌱 Model Eğitmeni");
+  }
+
+  if (state.lesson2Done.has("l2Quality")) {
+    badges.push("🗂️ Veri Koruyucusu");
+  }
+
+  if (state.lesson2Done.has("l2Repair")) {
+    badges.push("🛠️ Model Tamircisi");
+  }
+
+  if (state.lesson2Done.size === LESSON2_TASKS.length) {
+    badges.push("🏆 Ders 2 Ustası");
+  }
+
+  $("badgesOut").textContent =
+    badges.join(" · ") || "Henüz rozet yok";
+
+  $("reportTeam").textContent = state.team;
+
+  renderLessonMap(
+    "lesson1Map",
+    LESSON1_TASKS,
+    state.lesson1Done
+  );
+
+  renderLessonMap(
+    "lesson2Map",
+    LESSON2_TASKS,
+    state.lesson2Done
+  );
+}
+
+function renderLessonMap(containerId, tasks, doneSet) {
+  const area = $(containerId);
+
+  if (!area) return;
+
+  area.replaceChildren();
+
+  tasks.forEach(([id, icon, title]) => {
+    const card = document.createElement("article");
+
+    card.className =
+      "quest" + (doneSet.has(id) ? " done" : "");
+
+    const picture = document.createElement("div");
+    picture.className = "icon";
+    picture.textContent = icon;
+
+    const heading = document.createElement("h3");
+    heading.textContent = title;
+
+    const status = document.createElement("p");
+    status.className = "small muted";
+
+    status.textContent =
+      doneSet.has(id)
+        ? "✅ Tamamlandı"
+        : "Henüz tamamlanmadı";
+
+    const button = document.createElement("button");
+    button.className = "alt";
+
+    button.textContent =
+      doneSet.has(id)
+        ? "Yeniden aç"
+        : "Göreve git";
+
+    button.addEventListener("click", () => go(id));
+
+    card.append(
+      picture,
+      heading,
+      status,
+      button
+    );
+
+    area.append(card);
+  });
+}
+
+function completeTask(lesson, id) {
+  const set =
+    lesson === 1
+      ? state.lesson1Done
+      : state.lesson2Done;
+
+  if (set.has(id)) return;
+
+  set.add(id);
+
+  saveStorage();
+  updateInterface();
+  successSound();
+
+  toast(`🎉 Ders ${lesson} görevi tamamlandı!`);
+}
+
+function award(key, points = 2) {
+  if (state.earned.has(key)) return;
+
+  state.earned.add(key);
+  state.score += points;
+
+  saveStorage();
+  updateInterface();
+}
+
+function rotatePlayer() {
+  state.turn =
+    (state.turn + 1) % state.players;
+
+  updateInterface();
+}
+
+/* =========================================================
+   GEZİNME
+========================================================= */
+
+function unloadVideo() {
+  $("videoArea").replaceChildren();
+  $("videoArea").hidden = true;
+  $("loadVideo").disabled = false;
+}
+
+function go(page) {
+  if (!ALL_PAGES.includes(page)) return;
+
+  if (state.page === "l1Intro" &&
+      page !== "l1Intro") {
+    unloadVideo();
+  }
+
+  if (state.page === "l2Exam" &&
+      page !== "l2Exam" &&
+      lesson2ExamState.active) {
+    endLesson2Exam(true);
+  }
+
+  state.page = page;
+
+  ALL_PAGES.forEach(id => {
+    $(id).hidden = id !== page;
+  });
+
+  const instructions = {
+    home:
+      "Ana sayfadan Ders 1 veya Ders 2'yi seçin.",
+
+    lesson1Home:
+      "Ders 1 görev haritasındasınız.",
+
+    lesson2Home:
+      "Ders 2 görev haritasındasınız.",
+
+    l1Atlas:
+      "Kavramları örnekleriyle birlikte inceleyin.",
+
+    l1Sort:
+      "Kartı sürükleyin veya seçip doğru kutuya dokunun.",
+
+    l1Momo:
+      "Önce kendi tahmininizi yapın, sonra simülasyonu çalıştırın.",
+
+    l2Pipeline:
+      "Animasyonu adım adım çalıştırın.",
+
+    l2Trainer:
+      "Çeşitli eğitim örnekleri seçerek model hazırlayın.",
+
+    l2Quality:
+      "Veri kartlarını uygun kalite kutularına yerleştirin.",
+
+    l2Repair:
+      "Modelin sorununa en uygun çözümü seçin.",
+
+    lesson2Report:
+      "Deney raporunu altı adımda tamamlayın."
+  };
+
+  $("narrator").textContent =
+    instructions[page] ||
+    "Bölümün başındaki amaç ve nasıl oynanır yönergelerini okuyun.";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+document.querySelectorAll("[data-go]").forEach(button => {
+  button.addEventListener("click", () => {
+    go(button.dataset.go);
+  });
+});
+
+/* =========================================================
+   AYARLAR
+========================================================= */
+
+$("teamInput").value = state.team;
+$("playerInput").value = String(state.players);
+$("levelInput").value = state.level;
+$("examInput").value = state.timed ? "yes" : "no";
+
+$("saveSettings").addEventListener("click", () => {
+  state.team =
+    $("teamInput").value.trim().slice(0, 28) ||
+    "YZ Dedektifleri";
+
+  state.players =
+    Number($("playerInput").value);
+
+  state.level =
+    $("levelInput").value;
+
+  state.timed =
+    $("examInput").value === "yes";
+
+  saveStorage();
+  updateInterface();
+
+  toast("✅ Ayarlar kaydedildi.");
+});
+
+/* İlerleme sıfırlama */
+
+$("resetProgress").addEventListener("click", () => {
+  const accepted = confirm(
+    "Ders 1 ve Ders 2 ilerlemesi ile puanlar sıfırlansın mı?"
+  );
+
+  if (!accepted) return;
+
+  state.score = 0;
+  state.turn = 0;
+  state.lesson1Done.clear();
+  state.lesson2Done.clear();
+  state.earned.clear();
+
+  saveStorage();
+  updateInterface();
+  go("home");
+
+  toast("İlerleme sıfırlandı.");
+});
+
+/* =========================================================
+   GENEL TEST MOTORU
+========================================================= */
+
+function startQuiz({
+  containerId,
+  questions,
+  lesson,
+  taskId,
+  keyPrefix,
+  completionText
+}) {
+  const area = $(containerId);
+
+  const activeQuestions =
+    questions.filter(item =>
+      !item.level ||
+      item.level === state.level
+    );
+
+  const run = {
+    index: 0,
+    correct: 0,
+    answered: false
+  };
+
+  function render() {
+    area.replaceChildren();
+
+    if (run.index >= activeQuestions.length) {
+      const result = document.createElement("div");
+      result.className = "feedback good";
+
+      result.innerHTML =
+        `<h3>🏅 Etkinlik tamamlandı</h3>` +
+        `<p>${run.correct}/${activeQuestions.length} doğru.</p>` +
+        `<p>${completionText}</p>`;
+
+      area.append(result);
+
+      completeTask(lesson, taskId);
+      return;
+    }
+
+    run.answered = false;
+
+    const item =
+      activeQuestions[run.index];
+
+    const meta = document.createElement("p");
+    meta.className = "pill";
+
+    meta.textContent =
+      `Soru ${run.index + 1}/${activeQuestions.length} · ` +
+      `Oyuncu ${state.turn + 1}`;
+
+    const progress = document.createElement("div");
+    progress.className = "progress";
+
+    const fill = document.createElement("div");
+
+    fill.style.width =
+      `${run.index / activeQuestions.length * 100}%`;
+
+    progress.append(fill);
+
+    const heading = document.createElement("h3");
+    heading.textContent = item.question;
+
+    const choices = document.createElement("div");
+
+    const feedback = document.createElement("div");
+    feedback.className = "feedback";
+    feedback.hidden = true;
+
+    const next = document.createElement("button");
+    next.hidden = true;
+
+    next.textContent =
+      run.index === activeQuestions.length - 1
+        ? "Sonucu gör →"
+        : "Sonraki soru →";
+
+    next.addEventListener("click", () => {
+      run.index++;
+      rotatePlayer();
+      render();
+    });
+
+    item.options.forEach((option, index) => {
+      const button = document.createElement("button");
+
+      button.className = "choice";
+      button.textContent = option;
+
+      button.addEventListener("click", () => {
+        if (run.answered) return;
+
+        run.answered = true;
+
+        const correct =
+          index === item.correct;
+
+        [...choices.children].forEach(
+          (choice, choiceIndex) => {
+            choice.disabled = true;
+
+            if (choiceIndex === item.correct) {
+              choice.classList.add("correct");
+            }
+
+            if (choiceIndex === index && !correct) {
+              choice.classList.add("wrong");
+            }
+          }
+        );
+
+        if (correct) {
+          run.correct++;
+
+          award(
+            `${keyPrefix}-${run.index}`,
+            item.points || 2
+          );
+
+          successSound();
+        } else {
+          wrongSound();
+        }
+
+        feedback.hidden = false;
+
+        feedback.className =
+          "feedback " +
+          (correct ? "good" : "bad");
+
+        if (correct) {
+          feedback.textContent =
+            `✅ Doğru. ${item.explanation}`;
+        } else {
+          feedback.textContent =
+            `❌ Bu cevap doğru değil. ` +
+            `Doğru cevap: “${item.options[item.correct]}”. ` +
+            item.explanation;
+        }
+
+        next.hidden = false;
+      });
+
+      choices.append(button);
+    });
+
+    area.append(
+      meta,
+      progress,
+      heading,
+      choices,
+      feedback,
+      next
+    );
+  }
+
+  area.hidden = false;
+  render();
+}
+
+/* =========================================================
+   DERS 1: VİDEO
+========================================================= */
+
+$("loadVideo").addEventListener("click", () => {
+  const frame = document.createElement("iframe");
+
+  frame.src =
+    "https://www.youtube.com/embed/hcsn-XT_xd4?start=24";
+
+  frame.title =
+    "Yapay zekâ giriş videosu";
+
+  frame.allow =
+    "encrypted-media; picture-in-picture; web-share";
+
+  frame.allowFullscreen = true;
+
+  $("videoArea").replaceChildren(frame);
+  $("videoArea").hidden = false;
+  $("loadVideo").disabled = true;
+});
+
+/* =========================================================
+   DERS 1: GİRİŞ TESTİ
+========================================================= */
+
+const lesson1IntroQuestions = [
+  {
+    question:
+      "Bir programın hızlı çalışması onun kesinlikle YZ olduğunu gösterir mi?",
+
+    options: [
+      "Evet, hızlı programların hepsi YZ'dir.",
+      "Hayır, basit kurallarla da hızlı çalışabilir."
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Bir sistemin ne kadar hızlı olduğundan çok, nasıl çalıştığı önemlidir."
+  },
+
+  {
+    question:
+      "Bir uygulama yeni bir çizime 'kuş olabilir' dedi. Bu sonuç nedir?",
+
+    options: [
+      "Kontrol edilmesi gereken bir tahmin",
+      "Kesinlikle değişmeyecek gerçek"
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Sınıflandırma sisteminin sonucu bir tahmindir ve yanlış çıkabilir."
+  },
+
+  {
+    question:
+      "Yapay zekâ araştırmalarının tarihi için hangisi doğrudur?",
+
+    options: [
+      "Yalnızca son birkaç yıldır vardır.",
+      "Onlarca yıllık geçmişi vardır ve 1956 önemli bir tarihtir."
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Yapay zekâ fikri ve araştırmaları uzun bir geçmişe sahiptir."
+  }
+];
+
+$("startL1IntroQuiz").addEventListener("click", () => {
+  startQuiz({
+    containerId: "l1IntroQuiz",
+    questions: lesson1IntroQuestions,
+    lesson: 1,
+    taskId: "l1Intro",
+    keyPrefix: "l1-intro",
+    completionText:
+      "Artık Yapay Zekâ Kavram Atlası'na geçebilirsiniz."
+  });
+});
+
+/* =========================================================
+   DERS 1: KAVRAM ATLASI
+========================================================= */
+
+const TERMS = [
+  [
+    "Veri",
+    "Bir sistemin kullandığı bilgiler veya örnekler.",
+    "Etiketlenmiş hayvan çizimleri veri olabilir."
+  ],
+
+  [
+    "Girdi (input)",
+    "Sisteme verilen yeni bilgi.",
+    "Tanıması için gösterdiğin yeni fotoğraf girdidir."
+  ],
+
+  [
+    "Çıktı (output)",
+    "Sistemin verdiği sonuç.",
+    "Sistemin 'Bu bir kuş olabilir' demesi çıktıdır."
+  ],
+
+  [
+    "Etiket",
+    "Bir örneğin hangi gruba ait olduğunu belirten ad.",
+    "Bir resmin yanında 'kedi' yazması etikettir."
+  ],
+
+  [
+    "Özellik",
+    "Bir örneği anlatmaya veya karşılaştırmaya yardımcı olan nitelik.",
+    "Momo'nun rengi ve anten sayısı özelliktir."
+  ],
+
+  [
+    "Tahmin",
+    "Sistemin verdiği, yanlış da çıkabilen sonuç.",
+    "'Bu ses bir kuşa ait olabilir' cümlesi tahmindir."
+  ],
+
+  [
+    "Hata",
+    "Tahminin gerçek sonuçla uyuşmaması.",
+    "Kediyi köpek olarak tanıması bir hatadır."
+  ],
+
+  [
+    "Test",
+    "Sistemi yeni bir örnekle denemek.",
+    "Daha önce gösterilmemiş çizimlerle denemek testtir."
+  ],
+
+  [
+    "Algoritma",
+    "Bir işi yapmak için izlenen adımlar veya kurallar.",
+    "'Süre dolduysa alarm ver' bir kuraldır."
+  ],
+
+  [
+    "Model",
+    "Girdiye göre çıktı üretmek için hazırlanmış sistem.",
+    "Bir görüntü sınıflandırıcısı resimden etiket tahmin edebilir."
+  ],
+
+  [
+    "Eğitim verisi",
+    "Model hazırlanırken kullanılan örnekler.",
+    "Önceden gösterilen etiketli resimler eğitim verisidir."
+  ],
+
+  [
+    "Test verisi",
+    "Modeli denemek için ayrılan yeni örnekler.",
+    "Eğitimde kullanılmayan resimler test verisi olabilir."
+  ]
+];
+
+function renderTerms() {
+  const area = $("termCards");
+
+  area.replaceChildren();
+
+  TERMS.forEach(([name, meaning, example], index) => {
+    const card = document.createElement("article");
+    card.className = "term";
+
+    const title = document.createElement("strong");
+    title.textContent =
+      `${index < 8 ? "⭐ " : ""}${name}`;
+
+    const description = document.createElement("p");
+    description.textContent = meaning;
+
+    const exampleText = document.createElement("p");
+    exampleText.className = "small muted";
+    exampleText.textContent =
+      "Örnek: " + example;
+
+    card.append(
+      title,
+      description,
+      exampleText
+    );
+
+    area.append(card);
+  });
+}
+
+$("finishAtlas").addEventListener("click", () => {
+  award("l1-atlas", 3);
+  completeTask(1, "l1Atlas");
+  go("l1Puzzle");
+});
+
+/* =========================================================
+   DERS 1: KAVRAM BULMACASI
+========================================================= */
+
+const lesson1PuzzleQuestions = [
+  {
+    question:
+      "Yeni bir resmi tanıması için uygulamaya verdin. Bu resim nedir?",
+
+    options: ["Girdi", "Çıktı", "Hata"],
+
+    correct: 0,
+
+    explanation:
+      "Sisteme verilen yeni resim girdidir."
+  },
+
+  {
+    question:
+      "Uygulama 'Bu bir otobüs olabilir' dedi. Bu sonuç nedir?",
+
+    options: ["Çıktı ve tahmin", "Eğitim verisi", "Şifre"],
+
+    correct: 0,
+
+    explanation:
+      "Sistemin verdiği sonuç çıktıdır; aynı zamanda bir tahmindir."
+  },
+
+  {
+    question:
+      "Bir çizimin yanında 'uçak' yazıyor. Bu sözcük nedir?",
+
+    options: ["Etiket", "Girdi", "Algoritma"],
+
+    correct: 0,
+
+    explanation:
+      "Etiket, örneğin ait olduğu grubun adıdır."
+  },
+
+  {
+    question:
+      "Sistem otobüsü kamyon olarak tanıdı. Ne gözlemledik?",
+
+    options: ["Hata", "Özellik", "Ödül"],
+
+    correct: 0,
+
+    explanation:
+      "Tahmin gerçek sonuçla uyuşmadığı için hata oluştu."
+  },
+
+  {
+    question:
+      "Daha önce kullanılmamış resimlerle sistemi denemek nedir?",
+
+    options: ["Test", "Etiketleme", "Şarj"],
+
+    correct: 0,
+
+    explanation:
+      "Yeni örneklerle sonucu incelemek testtir."
+  },
+
+  {
+    question:
+      "Renk, biçim ve anten sayısı hangi kavrama örnektir?",
+
+    options: ["Özellik", "Parola", "Çıktı"],
+
+    correct: 0,
+
+    explanation:
+      "Bunlar bir örneği tanımlayan özelliklerdir.",
+
+    level: "medium"
+  }
+];
+
+$("startL1Puzzle").addEventListener("click", () => {
+  startQuiz({
+    containerId: "l1PuzzleGame",
+    questions: lesson1PuzzleQuestions,
+    lesson: 1,
+    taskId: "l1Puzzle",
+    keyPrefix: "l1-puzzle",
+    completionText:
+      "Kavramların hepsini oyun içinde kullandınız."
+  });
+});
+
+/* =========================================================
+   DERS 1: YENİ VAKALAR
+========================================================= */
+
+const lesson1CaseQuestions = [
+  {
+    question:
+      "Bir sulama sistemi her sabah saat 08.00'de açılıyor. Bu görev için YZ şart mı?",
+
+    options: [
+      "Evet, bitkilerle ilgili olduğu için.",
+      "Hayır, zamanlama kuralı yeterli olabilir."
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Sabit bir saatte açılmak için basit zamanlama yeterlidir."
+  },
+
+  {
+    question:
+      "Bir uygulama kuş seslerini türlerine göre tahmin ediyor.",
+
+    options: [
+      "Ses sınıflandırma için YZ kullanıyor olabilir.",
+      "Seslerle çalışan sistemler YZ kullanamaz."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Ses örneklerini sınıflandırmak için YZ yöntemleri kullanılabilir."
+  },
+
+  {
+    question:
+      "Oyun karakteri duvara çarpınca geri dönüyor.",
+
+    options: [
+      "Basit bir 'duvara çarparsa dön' kuralı olabilir.",
+      "Hareket ettiği için mutlaka YZ'dir."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Bir koşula tepki vermek için YZ gerekli değildir."
+  },
+
+  {
+    question:
+      "Bir uygulama okuma geçmişine göre kitap öneriyor; çalışma yöntemi bilinmiyor.",
+
+    options: [
+      "Nasıl çalıştığını araştırmadan kesin konuşmam.",
+      "Öneri yaptığı için kesin YZ'dir."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Öneriler basit kurallar veya YZ yöntemleriyle üretilebilir."
+  },
+
+  {
+    question:
+      "Bir sistem geri dönüşüm kutusundaki malzemeyi plastik veya kâğıt diye tahmin ediyor.",
+
+    options: [
+      "Görüntü sınıflandırma için YZ kullanıyor olabilir.",
+      "Kutularla çalışan hiçbir sistem YZ değildir."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Görüntülerden sınıf tahmin etmek YZ'nin kullanılabileceği bir görevdir."
+  },
+
+  {
+    question:
+      "Bir asansör düğmeye basılınca belirli kata gidiyor.",
+
+    options: [
+      "Bu davranış tek başına YZ kanıtı değildir.",
+      "Hareket ettiği için kesinlikle YZ'dir."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Asansör önceden belirlenmiş kontrol kurallarıyla çalışabilir."
+  },
+
+  {
+    question:
+      "Bir uygulama öğrencinin hatalarına göre yeni soru öneriyor.",
+
+    options: [
+      "YZ kullanabilir; fakat yöntemini bilmek gerekir.",
+      "Her soru önerisi mutlaka aynı YZ yöntemini kullanır."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Kişiselleştirme farklı yöntemlerle gerçekleştirilebilir.",
+
+    level: "medium"
+  }
+];
+
+$("startL1Cases").addEventListener("click", () => {
+  startQuiz({
+    containerId: "l1CasesGame",
+    questions: lesson1CaseQuestions,
+    lesson: 1,
+    taskId: "l1Cases",
+    keyPrefix: "l1-cases",
+    completionText:
+      "Bir sistemin sonucuna değil, çalışma yöntemine de bakmalıyız."
+  });
+});
+
+/* =========================================================
+   DERS 1: SINIFLANDIRMA
+========================================================= */
+
+const L1_SORT_ITEMS = [
+  {
+    id: "a",
+    text: "Kuş sesinin türünü tahmin eden uygulama",
+    target: "ai"
+  },
+  {
+    id: "b",
+    text: "El yazısındaki harfi tahmin eden uygulama",
+    target: "ai"
+  },
+  {
+    id: "c",
+    text: "Her gün 08.00'de açılan sulama sistemi",
+    target: "rule"
+  },
+  {
+    id: "d",
+    text: "Düğmeye basınca kata giden asansör",
+    target: "rule"
+  },
+  {
+    id: "e",
+    text: "E-posta şifresi",
+    target: "private"
+  },
+  {
+    id: "f",
+    text: "Ev adresi",
+    target: "private"
+  },
+  {
+    id: "g",
+    text: "Yöntemi bilinmeyen kitap önerisi",
+    target: "unknown"
+  },
+  {
+    id: "h",
+    text: "Yöntemi bilinmeyen oyun karakteri",
+    target: "unknown"
+  }
+];
+
+const L1_SORT_ZONES = {
+  ai: "YZ kullanıyor olabilir",
+  rule: "Basit kuralla çalışabilir",
+  private: "Özel bilgi: paylaşma",
+  unknown: "Çalışma yöntemini öğren"
+};
+
+let l1SortSelected = null;
+
+function placeL1Sort(id, target) {
+  const item =
+    L1_SORT_ITEMS.find(value => value.id === id);
+
+  const element =
+    $("l1-item-" + id);
+
+  if (!item || !element) return;
+
+  $("l1-zone-" + target).append(element);
+
+  l1SortSelected = null;
+
+  document
+    .querySelectorAll("#l1Sort .data-card")
+    .forEach(card => card.classList.remove("selected"));
+
+  const correct =
+    item.target === target;
+
+  element.classList.toggle("correct", correct);
+  element.classList.toggle("wrong", !correct);
+
+  if (correct) {
+    $("l1SortFeedback").textContent =
+      `✅ “${item.text}” uygun kutuda.`;
+
+    successSound();
+
+    award("l1-sort-" + id, 1);
+
+  } else {
+    $("l1SortFeedback").textContent =
+      `❌ Bu kutu doğru değil. Doğru kutu: “` +
+      `${L1_SORT_ZONES[item.target]}”. ` +
+      `Kartı yeniden taşı.`;
+
+    wrongSound();
+  }
+
+  const complete =
+    L1_SORT_ITEMS.every(item => {
+      const card =
+        $("l1-item-" + item.id);
+
+      return card.parentElement?.id ===
+        "l1-zone-" + item.target;
+    });
+
+  if (complete) {
+    $("l1SortFeedback").textContent =
+      "🏅 Bütün kartlar doğru yerde!";
+
+    completeTask(1, "l1Sort");
+  }
+}
+
+function renderL1Sort() {
+  l1SortSelected = null;
+
+  $("l1SortPool").replaceChildren();
+  $("l1SortZones").replaceChildren();
+
+  Object.entries(L1_SORT_ZONES)
+    .forEach(([id, title]) => {
+      const zone = document.createElement("div");
+      zone.className = "zone";
+
+      const heading = document.createElement("h3");
+      heading.textContent = title;
+
+      const body = document.createElement("div");
+      body.className = "zone-items";
+      body.id = "l1-zone-" + id;
+
+      const button = document.createElement("button");
+      button.className = "alt";
+      button.textContent = "Seçili kartı buraya koy";
+
+      button.addEventListener("click", () => {
+        if (l1SortSelected) {
+          placeL1Sort(l1SortSelected, id);
+        } else {
+          toast("Önce bir kart seçin.");
+        }
+      });
+
+      zone.addEventListener("dragover", event => {
+        event.preventDefault();
+        zone.classList.add("over");
+      });
+
+      zone.addEventListener("dragleave", () => {
+        zone.classList.remove("over");
+      });
+
+      zone.addEventListener("drop", event => {
+        event.preventDefault();
+        zone.classList.remove("over");
+
+        const cardId =
+          event.dataTransfer.getData("text/plain");
+
+        if (cardId) {
+          placeL1Sort(cardId, id);
+        }
+      });
+
+      zone.append(heading, body, button);
+      $("l1SortZones").append(zone);
+    });
+
+  L1_SORT_ITEMS.forEach(item => {
+    const button = document.createElement("button");
+
+    button.id = "l1-item-" + item.id;
+    button.className = "data-card";
+    button.textContent = item.text;
+    button.draggable = true;
+
+    button.addEventListener("click", () => {
+      document
+        .querySelectorAll("#l1Sort .data-card")
+        .forEach(card => card.classList.remove("selected"));
+
+      l1SortSelected = item.id;
+      button.classList.add("selected");
+
+      $("l1SortFeedback").textContent =
+        `“${item.text}” seçildi. ` +
+        `Şimdi uygun kutuya dokunun.`;
+    });
+
+    button.addEventListener("dragstart", event => {
+      event.dataTransfer.setData(
+        "text/plain",
+        item.id
+      );
+    });
+
+    $("l1SortPool").append(button);
+  });
+
+  $("l1SortFeedback").textContent =
+    "Bir kart seçin veya sürükleyin.";
+}
+
+$("resetL1Sort").addEventListener(
+  "click",
+  renderL1Sort
+);
+
+/* =========================================================
+   DERS 1: MOMO-LILI
+========================================================= */
+
+const MOMO_INITIAL = [
+  {
+    color: "mavi",
+    antenna: 2,
+    pattern: "benekli",
+    label: "Momo"
+  },
+  {
+    color: "sarı",
+    antenna: 1,
+    pattern: "çizgili",
+    label: "Lili"
+  }
+];
+
+const MOMO_EXTRA = {
+  color: "sarı",
+  antenna: 2,
+  pattern: "benekli",
+  label: "Momo"
+};
+
+const MOMO_TEST = {
+  color: "sarı",
+  antenna: 1,
+  pattern: "benekli",
+  label: "Momo"
+};
+
+let momoTraining = [];
+let momoPhase = "idle";
+let momoBefore = null;
+
+function creatureSvg(item) {
+  const fill =
+    item.color === "sarı"
+      ? "#f4cd74"
+      : "#82c9ea";
+
+  const antennas =
+    item.antenna === 2
+      ? `
+        <path d="M80 60L65 20 M120 60L135 20"
+          stroke="#533a55" stroke-width="6"/>
+        <circle cx="65" cy="18" r="7" fill="#de7d9d"/>
+        <circle cx="135" cy="18" r="7" fill="#de7d9d"/>
+      `
+      : `
+        <path d="M100 60V20"
+          stroke="#533a55" stroke-width="6"/>
+        <circle cx="100" cy="18" r="7" fill="#de7d9d"/>
+      `;
+
+  const pattern =
+    item.pattern === "benekli"
+      ? `
+        <circle cx="75" cy="112" r="8" fill="white"/>
+        <circle cx="125" cy="125" r="9" fill="white"/>
+      `
+      : `
+        <path d="
+          M70 110Q100 95 130 110
+          M70 135Q100 120 130 135
+        "
+          stroke="white"
+          stroke-width="8"
+          fill="none"/>
+      `;
+
+  return `
+    <svg viewBox="0 0 200 180"
+         role="img"
+         aria-label="${item.color} renkli,
+         ${item.antenna} antenli,
+         ${item.pattern} canlı">
+      ${antennas}
+      <ellipse cx="100" cy="112"
+               rx="56" ry="55"
+               fill="${fill}"
+               stroke="#533a55"
+               stroke-width="5"/>
+      ${pattern}
+      <circle cx="79" cy="91" r="6"/>
+      <circle cx="121" cy="91" r="6"/>
+      <path d="M88 107Q100 120 112 107"
+            fill="none"
+            stroke="#292333"
+            stroke-width="4"/>
+    </svg>
+  `;
+}
+
+function renderMomoExamples() {
+  const area = $("momoExamples");
+
+  area.replaceChildren();
+
+  momoTraining.forEach(item => {
+    const box = document.createElement("div");
+
+    box.className = "inner creature";
+    box.innerHTML = creatureSvg(item);
+
+    const label = document.createElement("strong");
+    label.textContent = item.label;
+
+    box.append(label);
+    area.append(box);
+  });
+}
+
+function predictMomo() {
+  const ranked = momoTraining.map(item => ({
+    label: item.label,
+
+    score:
+      Number(item.color === MOMO_TEST.color) +
+      Number(item.antenna === MOMO_TEST.antenna) +
+      Number(item.pattern === MOMO_TEST.pattern)
+  }));
+
+  const best =
+    Math.max(...ranked.map(item => item.score));
+
+  const labels = [
+    ...new Set(
+      ranked
+        .filter(item => item.score === best)
+        .map(item => item.label)
+    )
+  ];
+
+  return labels.length === 1
+    ? labels[0]
+    : "Kararsız";
+}
+
+$("startMomo").addEventListener("click", () => {
+  momoTraining =
+    clone(MOMO_INITIAL);
+
+  momoPhase = "ready";
+  momoBefore = null;
+
+  $("momoBody").hidden = false;
+
+  renderMomoExamples();
+
+  $("momoCreature").innerHTML =
+    creatureSvg(MOMO_TEST);
+
+  $("momoGuess").value = "";
+  $("testMomo").disabled = false;
+  $("addMomoExample").hidden = true;
+  $("retestMomo").hidden = true;
+
+  $("momoFeedback").textContent =
+    "Önce tahmin yapın.";
+});
+
+$("testMomo").addEventListener("click", () => {
+  if (momoPhase !== "ready") return;
+
+  if (!$("momoGuess").value) {
+    $("momoFeedback").textContent =
+      "Önce kendi tahmininizi seçin.";
+
+    wrongSound();
+    return;
+  }
+
+  momoBefore = predictMomo();
+  momoPhase = "tested";
+
+  $("testMomo").disabled = true;
+
+  $("momoFeedback").textContent =
+    `Senin tahminin: ${$("momoGuess").value}. ` +
+    `Simülasyonun ilk çıktısı: ${momoBefore}. ` +
+    `Gerçek etiket: Momo.`;
+
+  $("addMomoExample").hidden = false;
+
+  if (momoBefore === "Momo") {
+    successSound();
+  } else {
+    wrongSound();
+  }
+});
+
+$("addMomoExample").addEventListener("click", () => {
+  if (momoPhase !== "tested") return;
+
+  momoTraining.push(
+    clone(MOMO_EXTRA)
+  );
+
+  momoPhase = "added";
+
+  renderMomoExamples();
+
+  $("addMomoExample").hidden = true;
+  $("retestMomo").hidden = false;
+
+  $("momoFeedback").textContent =
+    "Sarı, iki antenli benekli Momo örneği eklendi. " +
+    "Bu örnek, test kartının aynısı değildir.";
+});
+
+$("retestMomo").addEventListener("click", () => {
+  if (momoPhase !== "added") return;
+
+  const after = predictMomo();
+
+  momoPhase = "done";
+  $("retestMomo").hidden = true;
+
+  $("momoFeedback").textContent =
+    `İlk çıktı: ${momoBefore}. ` +
+    `Yeni çıktı: ${after}. ` +
+    `Gerçek etiket: Momo. ` +
+    `Tek test, bütün yeni örneklerde başarıyı kanıtlamaz.`;
+
+  if (after === "Momo") {
+    successSound();
+  } else {
+    wrongSound();
+  }
+
+  award("l1-momo", 3);
+  completeTask(1, "l1Momo");
+});
+
+/* =========================================================
+   DERS 1: GÜVENLİK
+========================================================= */
+
+const lesson1SafetyQuestions = [
+  {
+    question:
+      "Bir YZ sitesine okul şifreni yazman isteniyor. Ne yaparsın?",
+
+    options: [
+      "Şifremi yazarım.",
+      "Yazmam ve öğretmenime haber veririm."
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Şifreler özel bilgidir ve paylaşılmamalıdır."
+  },
+
+  {
+    question:
+      "Bir arkadaşının ses kaydını YZ aracına yüklemek istiyorsun.",
+
+    options: [
+      "Önce izin ve okul kurallarını kontrol ederim.",
+      "Kimseye sormadan yüklerim."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Başkasının sesi ve görüntüsü izinsiz paylaşılmamalıdır."
+  },
+
+  {
+    question:
+      "YZ sana şaşırtıcı bir bilimsel bilgi verdi.",
+
+    options: [
+      "Güvenilir bir kaynakla karşılaştırırım.",
+      "Düzgün yazıldığı için hemen paylaşırım."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Akıcı görünen bir yanıt da yanlış bilgi içerebilir."
+  },
+
+  {
+    question:
+      "YZ'den ödev için fikir aldın. En doğru davranış nedir?",
+
+    options: [
+      "Öğretmenin kurallarına uyar ve kendi katkımı gösteririm.",
+      "Yanıtı okumadan kendi çalışmammış gibi teslim ederim."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Amaç öğrenmek ve dürüst biçimde çalışmaktır."
+  }
+];
+
+$("startL1Safety").addEventListener("click", () => {
+  startQuiz({
+    containerId: "l1SafetyGame",
+    questions: lesson1SafetyQuestions,
+    lesson: 1,
+    taskId: "l1Safety",
+    keyPrefix: "l1-safety",
+    completionText:
+      "Özel verileri korumayı ve önemli iddiaları kontrol etmeyi öğrendiniz."
+  });
+});
+
+/* =========================================================
+   DERS 1: FİNAL
+========================================================= */
+
+const lesson1ExamQuestions = [
+  {
+    question:
+      "Yeni bir ses kaydını tanıma sistemine verdin. Bu kayıt nedir?",
+
+    options: ["Girdi", "Çıktı"],
+
+    correct: 0,
+
+    explanation:
+      "Sisteme verilen yeni bilgi girdidir."
+  },
+
+  {
+    question:
+      "Sistem 'Bu bir martı sesi olabilir' dedi. Bu nedir?",
+
+    options: ["Çıktı ve tahmin", "Eğitim verisi"],
+
+    correct: 0,
+
+    explanation:
+      "Sistemin verdiği sonuç çıktıdır ve bir tahmindir."
+  },
+
+  {
+    question:
+      "Sistem martı sesine karga dedi. Bu nedir?",
+
+    options: ["Hata", "Etiket"],
+
+    correct: 0,
+
+    explanation:
+      "Tahmin gerçek sonuçla uyuşmadı."
+  },
+
+  {
+    question:
+      "Bir sisteme daha önce göstermediğin seslerle deneme yapmak nedir?",
+
+    options: ["Test", "Şarj"],
+
+    correct: 0,
+
+    explanation:
+      "Yeni örneklerde sonucu incelemek testtir."
+  },
+
+  {
+    question:
+      "Bir öneri uygulamasının YZ kullandığını yalnızca öneri yaptığı için kesin söyleyebilir miyiz?",
+
+    options: [
+      "Hayır, çalışma yöntemini öğrenmeliyiz.",
+      "Evet, her öneri sistemi aynı biçimde çalışır."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Benzer sonuçlar farklı yöntemlerle üretilebilir."
+  }
+];
+
+$("startL1Exam").addEventListener("click", () => {
+  startQuiz({
+    containerId: "l1ExamGame",
+    questions: lesson1ExamQuestions,
+    lesson: 1,
+    taskId: "l1Exam",
+    keyPrefix: "l1-exam",
+    completionText:
+      "Ders 1 tamamlandı. Ders 2'ye geçebilirsiniz."
+  });
+});
+
+/* =========================================================
+   DERS 1: POSTER
+========================================================= */
+
+const posterFields = [
+  ["pTitle", "pvTitle", "Poster başlığı"],
+  ["pWhat", "pvWhat", "—"],
+  ["pWhy", "pvWhy", "—"],
+  ["pData", "pvData", "—"],
+  ["pError", "pvError", "—"],
+  ["pCheck", "pvCheck", "—"]
+];
+
+function updatePosterPreview() {
+  posterFields.forEach(
+    ([input, output, fallback]) => {
+      $(output).textContent =
+        $(input).value.trim() || fallback;
+    }
+  );
+}
+
+posterFields.forEach(([input]) => {
+  $(input).addEventListener(
+    "input",
+    updatePosterPreview
+  );
+});
+
+$("checkPoster").addEventListener("click", () => {
+  const values = posterFields.map(
+    ([input]) => $(input).value.trim()
+  );
+
+  const missing =
+    values
+      .map((value, index) => ({
+        value,
+        name: [
+          "başlık",
+          "ne yaptığı",
+          "YZ gerekçesi",
+          "veri",
+          "hata",
+          "insan kontrolü"
+        ][index]
+      }))
+      .filter(item => item.value.length < 8)
+      .map(item => item.name);
+
+  if (missing.length) {
+    $("posterFeedback").textContent =
+      "Şu alanları daha açıklayıcı yazın: " +
+      missing.join(", ") + ".";
+
+    $("posterFeedback").className =
+      "feedback bad";
+
+    wrongSound();
+    return;
+  }
+
+  $("posterFeedback").textContent =
+    "✅ Poster hazır. PDF olarak kaydedebilir veya sınıfa sunabilirsiniz.";
+
+  $("posterFeedback").className =
+    "feedback good";
+
+  successSound();
+  award("l1-poster", 3);
+});
+
+/* =========================================================
+   DERS 2: KISA TEKRAR
+========================================================= */
+
+const lesson2RecapQuestions = [
+  {
+    question:
+      "Bir termometre sıcaklık 30 dereceyi geçince alarm veriyor. YZ gerekli midir?",
+
+    options: [
+      "Evet, sıcaklığı kullanan her sistem YZ'dir.",
+      "Hayır, önceden yazılmış koşul yeterli olabilir."
+    ],
+
+    correct: 1,
+
+    explanation:
+      "'Sıcaklık 30'u geçerse alarm ver' basit bir kural olabilir."
+  },
+
+  {
+    question:
+      "Bir uygulama el yazındaki harfleri tahmin ediyor.",
+
+    options: [
+      "YZ kullanıyor olabilir.",
+      "Kalemle yazıldığı için YZ kullanamaz."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "El yazısı tanıma YZ yöntemlerinin kullanılabileceği bir görevdir."
+  },
+
+  {
+    question:
+      "Model yalnızca gündüz fotoğraflarıyla hazırlanmış ve gece zorlanıyor.",
+
+    options: [
+      "Eğitim örneklerinde ışık çeşitliliği az olabilir.",
+      "Gece fotoğrafları veri sayılmaz."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Farklı ışık koşullarının eksikliği yeni görüntülerde hataya katkı sağlayabilir."
+  },
+
+  {
+    question:
+      "Sistem yeni görüntüye 'kuş olabilir' dedi. Bu nedir?",
+
+    options: [
+      "Kontrol edilmesi gereken tahmin",
+      "Kesin ve değişmez gerçek"
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Sınıflandırma sonucu tahmindir ve yanlış olabilir."
+  }
+];
+
+$("startL2Recap").addEventListener("click", () => {
+  startQuiz({
+    containerId: "l2RecapGame",
+    questions: lesson2RecapQuestions,
+    lesson: 2,
+    taskId: "l2Recap",
+    keyPrefix: "l2-recap",
+    completionText:
+      "Dünkü bilgileri farklı örneklerle hatırladınız."
+  });
+});
+
+/* =========================================================
+   DERS 2: ANİMASYON
+========================================================= */
+
+const pipelineSteps = [
+  {
+    title: "📥 Girdi geldi",
+
+    html:
+      "<p>Robot Bahçıvana yeni bir bitki görüntüsü verildi.</p>" +
+      "<div class='signal'></div>" +
+      "<p><strong>Girdi:</strong> Sarı, benekli ve hafif eğik bitki.</p>",
+
+    explanation:
+      "Girdi, sistemin işlem yapması için verilen yeni bilgidir."
+  },
+
+  {
+    title: "👀 Özellikler incelendi",
+
+    html:
+      "<p>Simülasyon görüntüyü üç bilgiyle anlatıyor:</p>" +
+      "<ul><li>Renk: sarı</li><li>Benek: var</li>" +
+      "<li>Eğiklik: var</li></ul>",
+
+    explanation:
+      "Özellik, örneği anlatmaya veya karşılaştırmaya yardım eden bilgidir."
+  },
+
+  {
+    title: "🗂️ Eğitim örnekleriyle karşılaştırıldı",
+
+    html:
+      "<p>Yeni bitki, daha önce etiketlenmiş Rutin ve Kontrol " +
+      "örnekleriyle karşılaştırılıyor.</p>",
+
+    explanation:
+      "Eğitim örnekleri modelin önceden yararlandığı etiketli örneklerdir."
+  },
+
+  {
+    title: "💭 Model çıktı üretti",
+
+    html:
+      "<p>Simülasyonun tahmini:</p>" +
+      "<h2 style='color:#9bf0c6'>KONTROL</h2>" +
+      "<p>Bu sonuç kesin bilgi değil, tahmindir.</p>",
+
+    explanation:
+      "Çıktı, sistemin girdiye karşı verdiği sonuçtur."
+  },
+
+  {
+    title: "✅ Tahmin kontrol edildi",
+
+    html:
+      "<p>Gerçek etiket: <strong>Kontrol</strong></p>" +
+      "<p>Bu testte tahmin doğru çıktı.</p>" +
+      "<p>Tek test bütün yeni bitkilerde başarıyı kanıtlamaz.</p>",
+
+    explanation:
+      "Yeni ve çeşitli test örnekleriyle sonucu yeniden incelemeliyiz."
+  }
+];
+
+let pipelineIndex = -1;
+
+function renderPipeline() {
+  document
+    .querySelectorAll(".pipe-step")
+    .forEach((step, index) => {
+      step.classList.toggle(
+        "active",
+        index === pipelineIndex
+      );
+
+      step.classList.toggle(
+        "complete",
+        index < pipelineIndex
+      );
+    });
+
+  if (pipelineIndex < 0) {
+    $("pipelineVisual").innerHTML =
+      "<h3>Robot Bahçıvan bekliyor…</h3>" +
+      "<p>Animasyonu başlatmak için düğmeye basın.</p>";
+
+    $("pipelineFeedback").textContent =
+      "İlk olarak sisteme yeni bir girdi verilecek.";
+
+    $("nextPipeline").textContent =
+      "Animasyonu başlat →";
+
+    $("nextPipeline").disabled = false;
+
+    return;
+  }
+
+  const step =
+    pipelineSteps[pipelineIndex];
+
+  $("pipelineVisual").innerHTML =
+    `<h3>${step.title}</h3>${step.html}`;
+
+  $("pipelineFeedback").textContent =
+    step.explanation;
+
+  if (pipelineIndex === pipelineSteps.length - 1) {
+    $("nextPipeline").textContent =
+      "Animasyon tamamlandı";
+
+    $("nextPipeline").disabled = true;
+
+    award("l2-pipeline", 4);
+    completeTask(2, "l2Pipeline");
+
+  } else {
+    $("nextPipeline").textContent =
+      "Sonraki adım →";
+  }
+}
+
+$("nextPipeline").addEventListener("click", () => {
+  if (pipelineIndex < pipelineSteps.length - 1) {
+    pipelineIndex++;
+    renderPipeline();
+  }
+});
+
+$("resetPipeline").addEventListener("click", () => {
+  pipelineIndex = -1;
+  renderPipeline();
+});
+
+/* =========================================================
+   DERS 2: ROBOT BAHÇIVAN
+========================================================= */
+
+const TRAINING_PLANTS = [
+  {
+    id: "p1",
+    icon: "🌿",
+    color: "Yeşil",
+    spots: "Yok",
+    droop: "Yok",
+    label: "Rutin"
+  },
+  {
+    id: "p2",
+    icon: "🌱",
+    color: "Sarı",
+    spots: "Yok",
+    droop: "Yok",
+    label: "Rutin"
+  },
+  {
+    id: "p3",
+    icon: "🍃",
+    color: "Yeşil",
+    spots: "Var",
+    droop: "Yok",
+    label: "Kontrol"
+  },
+  {
+    id: "p4",
+    icon: "🌾",
+    color: "Sarı",
+    spots: "Var",
+    droop: "Yok",
+    label: "Kontrol"
+  },
+  {
+    id: "p5",
+    icon: "🥀",
+    color: "Yeşil",
+    spots: "Yok",
+    droop: "Var",
+    label: "Kontrol"
+  },
+  {
+    id: "p6",
+    icon: "🍂",
+    color: "Sarı",
+    spots: "Yok",
+    droop: "Var",
+    label: "Kontrol"
+  },
+  {
+    id: "p7",
+    icon: "🌵",
+    color: "Yeşil",
+    spots: "Var",
+    droop: "Var",
+    label: "Kontrol"
+  },
+  {
+    id: "p8",
+    icon: "🪴",
+    color: "Sarı",
+    spots: "Var",
+    droop: "Var",
+    label: "Kontrol"
+  }
+];
+
+const TEST_PLANTS = [
+  {
+    icon: "🌿",
+    title: "Test bitkisi 1",
+    color: "Yeşil",
+    spots: "Yok",
+    droop: "Yok",
+    truth: "Rutin"
+  },
+  {
+    icon: "🍃",
+    title: "Test bitkisi 2",
+    color: "Sarı",
+    spots: "Var",
+    droop: "Yok",
+    truth: "Kontrol"
+  },
+  {
+    icon: "🥀",
+    title: "Test bitkisi 3",
+    color: "Yeşil",
+    spots: "Yok",
+    droop: "Var",
+    truth: "Kontrol"
+  },
+  {
+    icon: "🪴",
+    title: "Test bitkisi 4",
+    color: "Sarı",
+    spots: "Yok",
+    droop: "Yok",
+    truth: "Rutin"
+  },
+  {
+    icon: "🌵",
+    title: "Test bitkisi 5",
+    color: "Yeşil",
+    spots: "Var",
+    droop: "Var",
+    truth: "Kontrol",
+    level: "medium"
+  }
+];
+
+const selectedTraining = new Set();
+
+let activeTestPlants = [];
+let testPlantIndex = 0;
+let currentPlantTested = false;
+
+function renderTrainingLibrary() {
+  const area = $("trainingLibrary");
+
+  area.replaceChildren();
+
+  TRAINING_PLANTS.forEach(plant => {
+    const card = document.createElement("article");
+
+    card.className =
+      "training-card" +
+      (selectedTraining.has(plant.id)
+        ? " selected"
+        : "");
+
+    const icon = document.createElement("span");
+    icon.className = "plant";
+    icon.textContent = plant.icon;
+
+    const heading = document.createElement("h3");
+    heading.textContent =
+      plant.label + " örneği";
+
+    const list = document.createElement("ul");
+    list.className = "features";
+
+    [
+      "Renk: " + plant.color,
+      "Benek: " + plant.spots,
+      "Eğiklik: " + plant.droop
+    ].forEach(text => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      list.append(li);
+    });
+
+    const button = document.createElement("button");
+    button.className = "alt";
+
+    button.textContent =
+      selectedTraining.has(plant.id)
+        ? "Örneği çıkar"
+        : "Eğitime ekle";
+
+    button.addEventListener("click", () => {
+      if (selectedTraining.has(plant.id)) {
+        selectedTraining.delete(plant.id);
+      } else {
+        selectedTraining.add(plant.id);
+      }
+
+      renderTrainingLibrary();
+      updateTrainingRequirement();
+    });
+
+    card.append(
+      icon,
+      heading,
+      list,
+      button
+    );
+
+    area.append(card);
+  });
+}
+
+function updateTrainingRequirement() {
+  const selected =
+    TRAINING_PLANTS.filter(plant =>
+      selectedTraining.has(plant.id)
+    );
+
+  const labels =
+    new Set(
+      selected.map(plant => plant.label)
+    );
+
+  $("trainingCount").textContent =
+    String(selected.length);
+
+  const ready =
+    selected.length >= 4 &&
+    labels.has("Rutin") &&
+    labels.has("Kontrol");
+
+  $("trainModel").disabled = !ready;
+
+  $("trainingRequirement").textContent =
+    ready
+      ? "✅ Başlangıç koşulları sağlandı. Modeli hazırlayabilirsiniz."
+      : "En az dört örnek ve hem Rutin hem Kontrol etiketi gerekli.";
+}
+
+function plantSimilarity(a, b) {
+  return (
+    Number(a.color === b.color) +
+    Number(a.spots === b.spots) +
+    Number(a.droop === b.droop)
+  );
+}
+
+function predictPlant(plant) {
+  const selected =
+    TRAINING_PLANTS.filter(item =>
+      selectedTraining.has(item.id)
+    );
+
+  const scores =
+    selected.map(example => ({
+      label: example.label,
+      score: plantSimilarity(plant, example)
+    }));
+
+  const best =
+    Math.max(...scores.map(item => item.score));
+
+  const labels = [
+    ...new Set(
+      scores
+        .filter(item => item.score === best)
+        .map(item => item.label)
+    )
+  ];
+
+  return {
+    label:
+      labels.length === 1
+        ? labels[0]
+        : "Kararsız",
+
+    best
+  };
+}
+
+function renderTestPlant() {
+  if (testPlantIndex >= activeTestPlants.length) {
+    $("modelReady").innerHTML =
+      "<div class='feedback good'>" +
+      "<h3>🏅 Test turu tamamlandı</h3>" +
+      "<p>Seçtiğiniz eğitim verilerinin hangi testleri etkilediğini tartışın.</p>" +
+      "</div>";
+
+    award("l2-trainer-complete", 6);
+    completeTask(2, "l2Trainer");
+
+    return;
+  }
+
+  const plant =
+    activeTestPlants[testPlantIndex];
+
+  $("testPlantIcon").textContent =
+    plant.icon;
+
+  $("testPlantTitle").textContent =
+    `${plant.title} · ` +
+    `${testPlantIndex + 1}/${activeTestPlants.length}`;
+
+  $("testPlantFeatures").replaceChildren();
+
+  [
+    "Renk: " + plant.color,
+    "Benek: " + plant.spots,
+    "Eğiklik: " + plant.droop
+  ].forEach(text => {
+    const li = document.createElement("li");
+    li.textContent = text;
+    $("testPlantFeatures").append(li);
+  });
+
+  $("studentPlantGuess").value = "";
+  $("testPlantButton").disabled = false;
+  $("nextPlant").hidden = true;
+
+  $("modelResult").textContent =
+    "Önce kendi tahmininizi seçin.";
+
+  currentPlantTested = false;
+}
+
+$("trainModel").addEventListener("click", () => {
+  activeTestPlants =
+    TEST_PLANTS.filter(plant =>
+      !plant.level ||
+      plant.level === state.level
+    );
+
+  testPlantIndex = 0;
+
+  $("modelReady").hidden = false;
+
+  renderTestPlant();
+  successSound();
+
+  toast("⚙️ Model hazırlandı. Test zamanı!");
+});
+
+$("resetTraining").addEventListener("click", () => {
+  selectedTraining.clear();
+
+  $("modelReady").hidden = true;
+
+  renderTrainingLibrary();
+  updateTrainingRequirement();
+});
+
+$("testPlantButton").addEventListener("click", () => {
+  if (currentPlantTested) return;
+
+  const studentGuess =
+    $("studentPlantGuess").value;
+
+  if (!studentGuess) {
+    $("modelResult").textContent =
+      "Önce kendi tahmininizi seçin.";
+
+    wrongSound();
+    return;
+  }
+
+  const plant =
+    activeTestPlants[testPlantIndex];
+
+  const result =
+    predictPlant(plant);
+
+  const correct =
+    result.label === plant.truth;
+
+  currentPlantTested = true;
+  $("testPlantButton").disabled = true;
+  $("nextPlant").hidden = false;
+
+  $("modelResult").innerHTML =
+    `<p><strong>Senin tahminin:</strong> ${studentGuess}</p>` +
+    `<p><strong>Model çıktısı:</strong> ${result.label}</p>` +
+    `<p><strong>Doğru etiket:</strong> ${plant.truth}</p>` +
+    `<p><strong>Benzerlik:</strong> ${result.best}/3 özellik</p>` +
+    `<p>${correct
+      ? "✅ Model bu testte doğru tahmin yaptı."
+      : "❌ Model bu testte doğru tahmin yapamadı. " +
+        "Doğru cevap: " + plant.truth + ". " +
+        "Eğitim örneklerini yeniden düşünün."}</p>`;
+
+  if (correct) {
+    successSound();
+
+    award(
+      "l2-plant-" + testPlantIndex,
+      2
+    );
+  } else {
+    wrongSound();
+  }
+});
+
+$("nextPlant").addEventListener("click", () => {
+  testPlantIndex++;
+  rotatePlayer();
+  renderTestPlant();
+});
+
+/* =========================================================
+   DERS 2: VERİ KALİTESİ
+========================================================= */
+
+const QUALITY_ITEMS = [
+  {
+    id: "q1",
+    text: "Farklı renk ve şekillerden doğru etiketli örnekler",
+    target: "useful"
+  },
+  {
+    id: "q2",
+    text: "Aynı fotoğrafın 20 kopyası",
+    target: "weak"
+  },
+  {
+    id: "q3",
+    text: "Rutin bitkiye yanlışlıkla Kontrol etiketi verilmiş",
+    target: "problem"
+  },
+  {
+    id: "q4",
+    text: "Aydınlık ve gölgeli ortamlardan örnekler",
+    target: "useful"
+  },
+  {
+    id: "q5",
+    text: "Yalnızca tek renkte bitki örnekleri",
+    target: "weak"
+  },
+  {
+    id: "q6",
+    text: "Ne olduğu anlaşılmayan bulanık görüntü",
+    target: "problem"
+  },
+  {
+    id: "q7",
+    text: "İki etiketten de yeterli örnek",
+    target: "useful"
+  },
+  {
+    id: "q8",
+    text: "Etiketi boş bırakılmış örnek",
+    target: "problem"
+  }
+];
+
+const QUALITY_ZONES = {
+  useful: "Faydalı ve çeşitli veri",
+  weak: "Yetersiz veya tek tip veri",
+  problem: "Sorunlu veri"
+};
+
+let qualitySelected = null;
+
+function placeQuality(id, target) {
+  const item =
+    QUALITY_ITEMS.find(value => value.id === id);
+
+  const element =
+    $("quality-" + id);
+
+  if (!item || !element) return;
+
+  $("quality-zone-" + target).append(element);
+
+  qualitySelected = null;
+
+  document
+    .querySelectorAll("#l2Quality .data-card")
+    .forEach(card => card.classList.remove("selected"));
+
+  const correct =
+    item.target === target;
+
+  element.classList.toggle("correct", correct);
+  element.classList.toggle("wrong", !correct);
+
+  if (correct) {
+    $("qualityFeedback").textContent =
+      `✅ “${item.text}” doğru kutuda.`;
+
+    successSound();
+    award("l2-quality-" + id, 1);
+
+  } else {
+    $("qualityFeedback").textContent =
+      `❌ Yanlış kutu. Doğru cevap: “` +
+      `${QUALITY_ZONES[item.target]}”. ` +
+      `Kartı yeniden taşıyın.`;
+
+    wrongSound();
+  }
+
+  const allCorrect =
+    QUALITY_ITEMS.every(item => {
+      const card =
+        $("quality-" + item.id);
+
+      return card.parentElement?.id ===
+        "quality-zone-" + item.target;
+    });
+
+  if (allCorrect) {
+    $("qualityFeedback").textContent =
+      "🏅 Bütün veri kartları doğru yerde!";
+
+    completeTask(2, "l2Quality");
+  }
+}
+
+function renderQuality() {
+  qualitySelected = null;
+
+  $("qualityPool").replaceChildren();
+  $("qualityZones").replaceChildren();
+
+  Object.entries(QUALITY_ZONES)
+    .forEach(([id, title]) => {
+      const zone = document.createElement("div");
+      zone.className = "zone";
+
+      const heading = document.createElement("h3");
+      heading.textContent = title;
+
+      const body = document.createElement("div");
+      body.className = "zone-items";
+      body.id = "quality-zone-" + id;
+
+      const button = document.createElement("button");
+      button.className = "alt";
+      button.textContent = "Seçili kartı buraya koy";
+
+      button.addEventListener("click", () => {
+        if (qualitySelected) {
+          placeQuality(qualitySelected, id);
+        } else {
+          toast("Önce bir veri kartı seçin.");
+        }
+      });
+
+      zone.addEventListener("dragover", event => {
+        event.preventDefault();
+        zone.classList.add("over");
+      });
+
+      zone.addEventListener("dragleave", () => {
+        zone.classList.remove("over");
+      });
+
+      zone.addEventListener("drop", event => {
+        event.preventDefault();
+        zone.classList.remove("over");
+
+        const cardId =
+          event.dataTransfer.getData("text/plain");
+
+        if (cardId) {
+          placeQuality(cardId, id);
+        }
+      });
+
+      zone.append(
+        heading,
+        body,
+        button
+      );
+
+      $("qualityZones").append(zone);
+    });
+
+  QUALITY_ITEMS.forEach(item => {
+    const button = document.createElement("button");
+
+    button.id = "quality-" + item.id;
+    button.className = "data-card";
+    button.textContent = item.text;
+    button.draggable = true;
+
+    button.addEventListener("click", () => {
+      document
+        .querySelectorAll("#l2Quality .data-card")
+        .forEach(card => card.classList.remove("selected"));
+
+      qualitySelected = item.id;
+
+      button.classList.add("selected");
+
+      $("qualityFeedback").textContent =
+        `“${item.text}” seçildi. ` +
+        `Şimdi uygun kutuya dokunun.`;
+    });
+
+    button.addEventListener("dragstart", event => {
+      event.dataTransfer.setData(
+        "text/plain",
+        item.id
+      );
+    });
+
+    $("qualityPool").append(button);
+  });
+
+  $("qualityFeedback").textContent =
+    "Bir veri kartı seçin veya sürükleyin.";
+}
+
+$("resetQuality").addEventListener(
+  "click",
+  renderQuality
+);
+
+/* =========================================================
+   DERS 2: HATA DEDEKTİFİ
+========================================================= */
+
+const lesson2ErrorQuestions = [
+  {
+    question:
+      "Konuşmayı yazıya çeviren sistem sessiz odada iyi, gürültülü sınıfta kötü çalışıyor.",
+
+    options: [
+      "Ses girdisinin kalitesi değişmiş olabilir.",
+      "Yazı tipi yanlış olabilir.",
+      "Modelin bütün görevlerde bozuk olduğu kesindir."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Gürültü, sisteme verilen ses girdisinin kalitesini etkileyebilir."
+  },
+
+  {
+    question:
+      "Hayvan modeli yalnızca gündüz fotoğraflarıyla hazırlanmış ve gece yanılıyor.",
+
+    options: [
+      "Eğitim verisinde farklı ışık koşulları eksik olabilir.",
+      "Gece görüntüleri veri sayılmaz.",
+      "Bütün fotoğraflar aynı olmalıdır."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Eğitim verisinin çeşitliliği yeni durumlardaki sonucu etkileyebilir."
+  },
+
+  {
+    question:
+      "Bisiklet görüntüsü yanlışlıkla 'motosiklet' olarak etiketlenmiş.",
+
+    options: [
+      "Yanlış etiket modelin sonuçlarını olumsuz etkileyebilir.",
+      "Etiketlerin hiçbir önemi yoktur.",
+      "Görüntü kendiliğinden düzelir."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Yanlış etiket modele hatalı bir örnek sunar."
+  },
+
+  {
+    question:
+      "Model eğitim örneklerinde iyi, yeni örneklerde başarısız.",
+
+    options: [
+      "Yeni ve kullanılmamış test örnekleriyle daha fazla inceleme gerekir.",
+      "Eğitimde başarılı olması her durum için yeterlidir.",
+      "Test yapmaya gerek yoktur."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Modeli eğitimde kullanılmayan yeni verilerle test etmek gerekir."
+  },
+
+  {
+    question:
+      "Bir model yalnızca bir kez yanlış tahmin yaptı. Ne söylemelisin?",
+
+    options: [
+      "Olası nedenleri araştırıp yeni testler yapmalıyım.",
+      "Kesin nedeni tek testten biliyorum.",
+      "Model hiçbir zaman işe yaramaz."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Tek bir hata, nedenini kesin olarak göstermez."
+  }
+];
+
+$("startL2Errors").addEventListener("click", () => {
+  startQuiz({
+    containerId: "l2ErrorsGame",
+    questions: lesson2ErrorQuestions,
+    lesson: 2,
+    taskId: "l2Errors",
+    keyPrefix: "l2-errors",
+    completionText:
+      "Bir hatanın birden fazla olası nedeni olabileceğini öğrendiniz."
+  });
+});
+
+/* =========================================================
+   DERS 2: MODELİ ONAR
+========================================================= */
+
+const repairQuestions = [
+  {
+    question:
+      "Model yalnızca gündüz araç fotoğraflarıyla hazırlanmış ve gece yanılıyor. En iyi onarım hangisidir?",
+
+    options: [
+      "Aynı gündüz fotoğrafını tekrar tekrar eklemek",
+      "Farklı gece ve ışık koşullarından doğru etiketli örnekler eklemek",
+      "Etiketlerin hepsini silmek"
+    ],
+
+    correct: 1,
+
+    explanation:
+      "Farklı ışık koşullarından çeşitli ve doğru etiketli örnekler daha uygun bir iyileştirmedir."
+  },
+
+  {
+    question:
+      "Bazı elma görüntülerine yanlışlıkla 'portakal' etiketi verilmiş.",
+
+    options: [
+      "Yanlış etiketleri bulup düzeltmek",
+      "Bütün etiketleri rastgele değiştirmek",
+      "Modeli test etmeden kullanmak"
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Etiket hataları düzeltilmeden eklenen yeni veriler sorunu çözmeyebilir."
+  },
+
+  {
+    question:
+      "Bitki modeli yalnızca büyük ve yeşil bitkilerle hazırlanmış.",
+
+    options: [
+      "Farklı boyut, renk ve ışık koşullarından örnekler eklemek",
+      "Aynı büyük yeşil bitkiyi çoğaltmak",
+      "Yeni testleri yasaklamak"
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Çeşitli örnekler farklı durumların temsil edilmesini sağlar."
+  },
+
+  {
+    question:
+      "Model yalnızca eğitim sırasında kullanılan örneklerle test edilmiş.",
+
+    options: [
+      "Daha önce eğitimde kullanılmamış yeni test örnekleri kullanmak",
+      "Aynı örnekleri tekrar tekrar test etmek",
+      "Doğru cevabı modele önceden söylemek"
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Yeni test verisi, modelin görmediği durumdaki sonucunu gösterir."
+  }
+];
+
+$("startRepair").addEventListener("click", () => {
+  startQuiz({
+    containerId: "repairGame",
+    questions: repairQuestions,
+    lesson: 2,
+    taskId: "l2Repair",
+    keyPrefix: "l2-repair",
+    completionText:
+      "Modeli geliştirdikten sonra yeni test örnekleri kullanmayı unutmayın."
+  });
+});
+
+/* =========================================================
+   DERS 2: FİNAL
+========================================================= */
+
+const lesson2ExamQuestions = [
+  {
+    question:
+      "Aynı görüntünün 30 kopyasını eklemek neden 30 farklı görüntü eklemekle aynı değildir?",
+
+    options: [
+      "Kopyalar yeni çeşitlilik sağlamaz.",
+      "Kopyaların hepsi farklı etikete dönüşür.",
+      "Bilgisayar görüntüleri kullanamaz."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Aynı örneği çoğaltmak yeni koşulları temsil etmez."
+  },
+
+  {
+    question:
+      "Yanlış etiketlenmiş eğitim örneği neye yol açabilir?",
+
+    options: [
+      "Modelin hatalı ilişkiler kurmasına katkı sağlayabilir.",
+      "Modeli her zaman mükemmel yapar.",
+      "Test ihtiyacını ortadan kaldırır."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Etiket örneğin hangi sınıfa ait olduğunu belirttiği için doğru olmalıdır."
+  },
+
+  {
+    question:
+      "Modeli geliştirdikten sonra ne yapılmalıdır?",
+
+    options: [
+      "Yeni ve kullanılmamış örneklerle tekrar test edilmelidir.",
+      "Test etmeden başarılı ilan edilmelidir.",
+      "Sadece eğitim örnekleri kullanılmalıdır."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Yeni testler yapılan değişikliğin işe yarayıp yaramadığını gösterir."
+  },
+
+  {
+    question:
+      "Model bir testte doğru tahmin yaptı. En dikkatli sonuç hangisidir?",
+
+    options: [
+      "Bu testte doğru çalıştı; başka örneklerde de denenmelidir.",
+      "Bütün durumlarda kesinlikle doğrudur.",
+      "Hiç veri kullanmamıştır."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Tek doğru sonuç tüm yeni durumlara genellenemez."
+  },
+
+  {
+    question:
+      "Gürültülü ses kaydında konuşma sistemi yanıldı. Ne düşünülmelidir?",
+
+    options: [
+      "Girdi kalitesi sonucu etkilemiş olabilir.",
+      "Ses kaydı veri değildir.",
+      "Sistem her zaman aynı hatayı yapacaktır."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Gürültü girdinin kalitesini etkileyebilir."
+  },
+
+  {
+    question:
+      "Eğitim verisi ile test verisi neden ayrılır?",
+
+    options: [
+      "Modeli daha önce görmediği örneklerde incelemek için",
+      "Bütün verileri aynı renge boyamak için",
+      "Cevabı önceden modele söylemek için"
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Yeni test verileri modelin yeni durumdaki davranışını gösterir."
+  },
+
+  {
+    question:
+      "Bir veri setinde yalnızca tek etiket bulunursa ne olabilir?",
+
+    options: [
+      "Model diğer etiketi yeterince öğrenemeyebilir.",
+      "Model bütün sınıfları otomatik olarak bilir.",
+      "Etiketlere artık ihtiyaç kalmaz."
+    ],
+
+    correct: 0,
+
+    explanation:
+      "Farklı sınıfları temsil eden örnekler gerekir."
+  }
+];
+
+let lesson2ExamState = {
+  active: false,
+  timer: null
+};
+
+$("startL2Exam").addEventListener("click", () => {
+  if (lesson2ExamState.active) {
+    clearInterval(lesson2ExamState.timer);
+  }
+
+  lesson2ExamState.active = true;
+
+  if (state.timed) {
+    const deadline =
+      Date.now() + 300000;
+
+    $("l2ExamClock").hidden = false;
+
+    lesson2ExamState.timer =
+      setInterval(() => {
+        const seconds =
+          Math.max(
+            0,
+            Math.ceil(
+              (deadline - Date.now()) / 1000
+            )
+          );
+
+        $("l2ExamClock").textContent =
+          `⏳ ${Math.floor(seconds / 60)}:` +
+          `${String(seconds % 60).padStart(2, "0")}`;
+
+        if (seconds === 0) {
+          clearInterval(lesson2ExamState.timer);
+          lesson2ExamState.active = false;
+
+          toast("⏰ Süre doldu.");
+        }
+      }, 500);
+  } else {
+    $("l2ExamClock").hidden = true;
+  }
+
+  startQuiz({
+    containerId: "l2ExamGame",
+    questions: lesson2ExamQuestions,
+    lesson: 2,
+    taskId: "l2Exam",
+    keyPrefix: "l2-exam",
+    completionText:
+      "Ders 2 değerlendirmesi tamamlandı."
+  });
+});
+
+function endLesson2Exam(interrupted) {
+  clearInterval(lesson2ExamState.timer);
+  lesson2ExamState.active = false;
+  $("l2ExamClock").hidden = true;
+
+  if (interrupted) {
+    toast("Sınavdan çıkıldı. İsterseniz yeniden başlatabilirsiniz.");
+  }
+}
+
+/* =========================================================
+   DERS 2: RAPOR
+========================================================= */
+
+const reportFields = [
+  ["rQuestion", "rvQuestion", "—"],
+  ["rData", "rvData", "—"],
+  ["rFirst", "rvFirst", "—"],
+  ["rProblem", "rvProblem", "—"],
+  ["rChange", "rvChange", "—"],
+  ["rConclusion", "rvConclusion", "—"]
+];
+
+function updateReportPreview() {
+  reportFields.forEach(
+    ([input, output, fallback]) => {
+      $(output).textContent =
+        $(input).value.trim() || fallback;
+    }
+  );
+}
+
+reportFields.forEach(([input]) => {
+  $(input).addEventListener(
+    "input",
+    updateReportPreview
+  );
+});
+
+$("saveReport").addEventListener("click", () => {
+  const values =
+    reportFields.map(
+      ([input]) => $(input).value.trim()
+    );
+
+  const names = [
+    "araştırma sorusu",
+    "eğitim verileri",
+    "ilk test",
+    "sorun",
+    "değişiklik",
+    "sonuç"
+  ];
+
+  const missing =
+    values
+      .map((value, index) => ({
+        value,
+        name: names[index]
+      }))
+      .filter(item => item.value.length < 12)
+      .map(item => item.name);
+
+  if (missing.length) {
+    $("reportFeedback").textContent =
+      "Şu bölümleri daha açıklayıcı yazın: " +
+      missing.join(", ") + ".";
+
+    $("reportFeedback").className =
+      "feedback bad";
+
+    wrongSound();
+    return;
+  }
+
+  $("reportFeedback").textContent =
+    "✅ Rapor hazır. PDF olarak kaydedebilir veya sınıfa sunabilirsiniz.";
+
+  $("reportFeedback").className =
+    "feedback good";
+
+  successSound();
+
+  award("l2-report", 5);
+  completeTask(2, "lesson2Report");
+});
+
+/* =========================================================
+   YAZDIRMA
+========================================================= */
+
+$("printPoster").addEventListener("click", () => {
+  updatePosterPreview();
+
+  document.body.classList.add("print-poster");
+  window.print();
+});
+
+$("printReport").addEventListener("click", () => {
+  updateReportPreview();
+
+  document.body.classList.add("print-report");
+  window.print();
+});
+
+$("printGuide").addEventListener("click", () => {
+  document.body.classList.add("print-guide");
+  window.print();
+});
+
+window.addEventListener("afterprint", () => {
+  document.body.classList.remove(
+    "print-poster",
+    "print-report",
+    "print-guide"
+  );
+});
+
+/* =========================================================
+   BAŞLANGIÇ
+========================================================= */
+
+renderTerms();
+renderL1Sort();
+renderPipeline();
+renderTrainingLibrary();
+updateTrainingRequirement();
+renderQuality();
+updatePosterPreview();
+updateReportPreview();
+updateInterface();
+go("home");
+
+</script>
+
+</body>
+</html>
